@@ -1,6 +1,6 @@
 import {LitElement, html, css} from 'lit';
 import {userList} from '../mock-data';
-import {ICON} from '../constants';
+import {ICON, NUMBER_OF_USERS_PER_PAGE} from '../constants';
 export class ListingUsers extends LitElement {
   static get styles() {
     return css`
@@ -49,7 +49,6 @@ export class ListingUsers extends LitElement {
     `;
   }
   static properties = {
-    NUMBER_OF_PRODUCTS_PER_PAGE: {type: Number},
     currentUserList: {type: Array},
     currentPage: {type: Number},
   };
@@ -59,11 +58,11 @@ export class ListingUsers extends LitElement {
     this.userList = userList;
     this.currentUserList = userList;
     this.currentPage = 1;
-    this.NUMBER_OF_PRODUCTS_PER_PAGE = 10;
   }
 
   render() {
     return html`
+      <listing-header></listing-header>
       <table class="user-table-container">
         <thead class="table-header-container">
           <tr>
@@ -89,7 +88,7 @@ export class ListingUsers extends LitElement {
     `;
   }
   pageCount() {
-    return this.currentUserList.length / this.NUMBER_OF_PRODUCTS_PER_PAGE;
+    return this.currentUserList.length / NUMBER_OF_USERS_PER_PAGE;
   }
   setSelectedPage(e) {
     this.currentPage = e.detail.currentPage;
