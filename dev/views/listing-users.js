@@ -1,5 +1,6 @@
 import {LitElement, html, css} from 'lit';
 import {userList} from '../mock-data';
+import {ICON} from '../constants';
 export class ListingUsers extends LitElement {
   static get styles() {
     return css`
@@ -11,6 +12,7 @@ export class ListingUsers extends LitElement {
       }
       .user-table-container {
         min-width: 95vw;
+        border-spacing: 0;
       }
       .user-row {
         font-size: 12px;
@@ -21,11 +23,15 @@ export class ListingUsers extends LitElement {
         vertical-align: middle;
         height: 3rem;
         text-align: center;
-        border-right: 1px solid #f1f1f2;
-        border-bottom: 1px solid #f1f1f2;
         color: #1d1e32;
         min-width: 3rem;
         max-width: 15rem;
+      }
+      td:last-child {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
       }
       .table-header-container {
         background-color: #ffffff;
@@ -42,10 +48,18 @@ export class ListingUsers extends LitElement {
       }
     `;
   }
+  static properties = {
+    NUMBER_OF_PRODUCTS_PER_PAGE: {type: Number},
+    currentUserList: {type: Array},
+    currentPage: {type: Number},
+  };
 
   constructor() {
     super();
     this.userList = userList;
+    this.currentUserList = userList;
+    this.currentPage = 1;
+    this.NUMBER_OF_PRODUCTS_PER_PAGE = 10;
   }
 
   render() {
@@ -65,22 +79,44 @@ export class ListingUsers extends LitElement {
           </tr>
         </thead>
         <tbody>
-          ${this.userList.map(
-            (item) => html` <tr class="user-row">
-              <td>${item.name}</td>
-              <td>${item.lastName}</td>
-              <td>${item.dateOfEmployment}</td>
-              <td>${item.dateOfBirth}</td>
-              <td>${item.phoneNumber}</td>
-              <td>${item.email}</td>
-              <td>${item.department}</td>
-              <td>${item.position}</td>
-              <td><custom-button name="Edit"></custom-button></td>
-            </tr>`
-          )}
+          ${this.employeeListPerPage}
         </tbody>
       </table>
+      <listing-pagination
+        @page-selected=${this.setSelectedPage}
+        count=${this.pageCount()}
+      ></listing-pagination>
     `;
+  }
+  pageCount() {
+    return this.currentUserList.length / this.NUMBER_OF_PRODUCTS_PER_PAGE;
+  }
+  setSelectedPage(e) {
+    this.currentPage = e.detail.currentPage;
+  }
+  get employeeListPerPage() {
+    return this.currentUserList
+      .map((item) => {
+        return html` <tr class="user-row">
+          <td>${item.name}</td>
+          <td>${item.lastName}</td>
+          <td>${item.dateOfEmployment}</td>
+          <td>${item.dateOfBirth}</td>
+          <td>${item.phoneNumber}</td>
+          <td>${item.email}</td>
+          <td>${item.department}</td>
+          <td>${item.position}</td>
+          <td>
+            <custom-button .icon=${ICON.EDIT}></custom-button>
+            <custom-button .icon=${ICON.DELETE}></custom-button>
+          </td>
+        </tr>`;
+      })
+      .filter((_, index) => {
+        return (
+          index < this.currentPage * 10 && index >= (this.currentPage - 1) * 10
+        );
+      });
   }
 }
 window.customElements.define('listing-users', ListingUsers);
