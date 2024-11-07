@@ -8,11 +8,13 @@ export class ListingUsers extends LitElement {
         display: flex;
         width: 100%;
         flex-direction: column;
+        align-items: center;
         padding: 2rem;
+        gap: 2rem;
       }
       .user-table-container {
-        min-width: 95vw;
         border-spacing: 0;
+        width: 90%;
       }
       .user-row {
         font-size: 12px;
