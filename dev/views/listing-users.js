@@ -99,15 +99,14 @@ export class ListingUsers extends LitElement {
     this.filterUserList();
   }
   deleteUser(userId) {
-    this.currentUserList = [
-      ...this.currentUserList.filter((user) => user.id !== userId),
+    this.completeUserList = [
+      ...this.completeUserList.filter((user) => user.id !== userId),
     ];
-    this.completeUserList = [...this.currentUserList];
+    this.filterUserList();
   }
   filterUserList() {
-    this.currentUserList = [...this.completeUserList];
     this.currentUserList = [
-      ...this.currentUserList.filter((item) => {
+      ...this.completeUserList.filter((item) => {
         const hasNameContainSearchedValue = stringContains(
           item.name,
           this.searchValue
@@ -140,7 +139,7 @@ export class ListingUsers extends LitElement {
           item.position,
           this.searchValue
         );
-        return (
+        const hasAnyValueContainsSearchValue =
           hasNameContainSearchedValue ||
           lastNameContainSearchedValue ||
           dateOfEmploymentContainSearchedValue ||
@@ -148,8 +147,8 @@ export class ListingUsers extends LitElement {
           phoneNumberContainSearchedValue ||
           emailContainSearchedValue ||
           departmentContainSearchedValue ||
-          positionContainSearchedValue
-        );
+          positionContainSearchedValue;
+        return hasAnyValueContainsSearchValue;
       }),
     ];
   }
