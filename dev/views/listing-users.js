@@ -96,9 +96,15 @@ export class ListingUsers extends LitElement {
   }
   setSearchValue(e) {
     this.searchValue = e.detail.searchValue;
-    this.setCurrentList();
+    this.filterUserList();
   }
-  setCurrentList() {
+  deleteUser(userId) {
+    this.currentUserList = [
+      ...this.currentUserList.filter((user) => user.id !== userId),
+    ];
+    this.userList = [...this.currentUserList];
+  }
+  filterUserList() {
     this.currentUserList = [...this.userList];
     this.currentUserList = [
       ...this.currentUserList.filter((item) => {
@@ -169,7 +175,10 @@ export class ListingUsers extends LitElement {
           <td>${item.position}</td>
           <td>
             <custom-button .icon=${ICON.EDIT}></custom-button>
-            <custom-button .icon=${ICON.DELETE}></custom-button>
+            <custom-button
+              @click=${() => this.deleteUser(item.id)}
+              .icon=${ICON.DELETE}
+            ></custom-button>
           </td>
         </tr>`;
       });
