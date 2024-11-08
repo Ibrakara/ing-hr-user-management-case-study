@@ -58,7 +58,7 @@ export class ListingUsers extends LitElement {
 
   constructor() {
     super();
-    this.userList = userList;
+    this.completeUserList = userList;
     this.currentUserList = userList;
     this.currentPage = 1;
     this.searchValue = '';
@@ -102,10 +102,10 @@ export class ListingUsers extends LitElement {
     this.currentUserList = [
       ...this.currentUserList.filter((user) => user.id !== userId),
     ];
-    this.userList = [...this.currentUserList];
+    this.completeUserList = [...this.currentUserList];
   }
   filterUserList() {
-    this.currentUserList = [...this.userList];
+    this.currentUserList = [...this.completeUserList];
     this.currentUserList = [
       ...this.currentUserList.filter((item) => {
         const hasNameContainSearchedValue = stringContains(
