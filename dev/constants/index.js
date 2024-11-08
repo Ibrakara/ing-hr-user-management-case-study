@@ -6,5 +6,6 @@ export const ICON = {
   ING_LOGO: 'ING-bank-logo',
   SEARCH: 'search',
   PLUS: 'plus',
+  USER: 'user',
 };
 export const NUMBER_OF_USERS_PER_PAGE = 10;
