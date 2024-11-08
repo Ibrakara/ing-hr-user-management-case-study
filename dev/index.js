@@ -4,3 +4,4 @@ export {CustomButton} from './components/custom-button';
 export {ListingPagination} from './components/listing-pagination';
 export {ListingHeader} from './components/listing-header';
 export {CustomSearch} from './components/custom-search';
+export {MyApp} from './my-app';
