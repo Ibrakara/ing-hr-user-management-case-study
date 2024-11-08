@@ -10,9 +10,6 @@ export class MyApp extends LitElement {
       color: #1a2b42;
       text-align: center;
     }
-    #outlet {
-      width: 80%;
-    }
   `;
   firstUpdated() {
     super.firstUpdated();
