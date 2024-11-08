@@ -9,12 +9,12 @@ export class CustomSearch extends LitElement {
         align-items: center;
         min-width: 30rem;
         max-width: 60%;
-        height: 40px;
+        height: 2rem;
         margin-left: 1rem;
       }
       .search-box {
         width: 90%;
-        height: 38px;
+        height: calc(2rem - 2px);
         border-radius: 4px;
         border: none;
         background-color: #fff;
@@ -31,10 +31,12 @@ export class CustomSearch extends LitElement {
       }
     `;
   }
+  static state = {
+    searchInput: {type: String},
+  };
 
   static get properties() {
     return {
-      searchInput: {type: String},
       isSearchDisabled: {type: Boolean},
     };
   }
