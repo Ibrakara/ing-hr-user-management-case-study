@@ -1,6 +1,7 @@
 import {LitElement, html, css} from 'lit';
 import {userList} from '../mock-data';
 import {ICON, NUMBER_OF_USERS_PER_PAGE} from '../constants';
+import {stringContains} from '../helpers';
 export class ListingUsers extends LitElement {
   static get styles() {
     return css`
@@ -60,11 +61,12 @@ export class ListingUsers extends LitElement {
     this.userList = userList;
     this.currentUserList = userList;
     this.currentPage = 1;
+    this.searchValue = '';
   }
 
   render() {
     return html`
-      <listing-header></listing-header>
+      <listing-header @input-updated=${this.setSearchValue}></listing-header>
       <table class="user-table-container">
         <thead class="table-header-container">
           <tr>
@@ -84,19 +86,77 @@ export class ListingUsers extends LitElement {
         </tbody>
       </table>
       <listing-pagination
-        @page-selected=${this.setSelectedPage}
-        count=${this.pageCount()}
+        @page-changed=${this.setSelectedPage}
+        count=${this.pageCount}
       ></listing-pagination>
     `;
-  }
-  pageCount() {
-    return this.currentUserList.length / NUMBER_OF_USERS_PER_PAGE;
   }
   setSelectedPage(e) {
     this.currentPage = e.detail.currentPage;
   }
+  setSearchValue(e) {
+    this.searchValue = e.detail.searchValue;
+    this.setCurrentList();
+  }
+  setCurrentList() {
+    this.currentUserList = [...this.userList];
+    this.currentUserList = [
+      ...this.currentUserList.filter((item) => {
+        const hasNameContainSearchedValue = stringContains(
+          item.name,
+          this.searchValue
+        );
+        const lastNameContainSearchedValue = stringContains(
+          item.lastName,
+          this.searchValue
+        );
+        const dateOfEmploymentContainSearchedValue = stringContains(
+          item.dateOfEmployment,
+          this.searchValue
+        );
+        const dateOfBirthContainSearchedValue = stringContains(
+          item.dateOfBirth,
+          this.searchValue
+        );
+        const phoneNumberContainSearchedValue = stringContains(
+          item.phoneNumber,
+          this.searchValue
+        );
+        const emailContainSearchedValue = stringContains(
+          item.email,
+          this.searchValue
+        );
+        const departmentContainSearchedValue = stringContains(
+          item.department,
+          this.searchValue
+        );
+        const positionContainSearchedValue = stringContains(
+          item.position,
+          this.searchValue
+        );
+        return (
+          hasNameContainSearchedValue ||
+          lastNameContainSearchedValue ||
+          dateOfEmploymentContainSearchedValue ||
+          dateOfBirthContainSearchedValue ||
+          phoneNumberContainSearchedValue ||
+          emailContainSearchedValue ||
+          departmentContainSearchedValue ||
+          positionContainSearchedValue
+        );
+      }),
+    ];
+  }
+  get pageCount() {
+    return Math.ceil(this.currentUserList.length / NUMBER_OF_USERS_PER_PAGE);
+  }
   get employeeListPerPage() {
     return this.currentUserList
+      .filter((_, index) => {
+        return (
+          index < this.currentPage * 10 && index >= (this.currentPage - 1) * 10
+        );
+      })
       .map((item) => {
         return html` <tr class="user-row">
           <td>${item.name}</td>
@@ -112,11 +172,6 @@ export class ListingUsers extends LitElement {
             <custom-button .icon=${ICON.DELETE}></custom-button>
           </td>
         </tr>`;
-      })
-      .filter((_, index) => {
-        return (
-          index < this.currentPage * 10 && index >= (this.currentPage - 1) * 10
-        );
       });
   }
 }
