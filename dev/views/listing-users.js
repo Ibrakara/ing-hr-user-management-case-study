@@ -7,7 +7,6 @@ export class ListingUsers extends LitElement {
     return css`
       :host {
         display: flex;
-        width: 100%;
         flex-direction: column;
         align-items: center;
         padding: 2rem;
