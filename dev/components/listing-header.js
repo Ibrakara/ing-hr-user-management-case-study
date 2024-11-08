@@ -56,6 +56,7 @@ export class ListingHeader extends LitElement {
         <custom-search @input-updated=${this.updateSearch}></custom-search>
       </div>
       <div class="listing-header-right-side">
+        <custom-button name="Employees" .icon=${ICON.USER}></custom-button>
         <custom-button name="Add New" .icon=${ICON.PLUS}></custom-button>
       </div>
     `;
