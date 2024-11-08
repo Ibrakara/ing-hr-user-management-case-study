@@ -45,6 +45,13 @@ export class ListingPagination extends LitElement {
     this.count = 0;
     this.currentPage = 1;
   }
+  updated() {
+    if (this.currentPage > this.count) {
+      this.setCurrentPageNumber(this.count);
+    } else if (this.currentPage === 0 && this.count > 0) {
+      this.setCurrentPageNumber(1);
+    }
+  }
 
   render() {
     if (this.count === 0) return;
