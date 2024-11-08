@@ -1,7 +1,4 @@
 import {LitElement, html, css} from 'lit';
-import {Router} from '@vaadin/router';
-import './views/listing-users';
-import './views/create-user';
 
 export class MyApp extends LitElement {
   static styles = css`
@@ -19,19 +16,12 @@ export class MyApp extends LitElement {
   `;
   firstUpdated() {
     super.firstUpdated();
-    const router = new Router(this.shadowRoot.querySelector('#outlet'));
-    console.log(router);
-    router.setRoutes([
-      {path: '/', component: 'listing-users'},
-      {path: '/about', component: 'create-user'},
-      {path: '(.*)', redirect: '/'},
-    ]);
   }
 
   render() {
     return html`
       <main>
-        <div id="outlet"></div>
+        <slot></slot>
       </main>
     `;
   }
