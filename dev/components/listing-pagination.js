@@ -47,21 +47,21 @@ export class ListingPagination extends LitElement {
   }
 
   render() {
+    if (this.count === 0) return;
     return html`
       <div>
         <custom-button
           @click=${() => this.setCurrentPageNumber(this.currentPage - 1 || 1)}
           .icon=${ICON.LEFT_ARROW}
         ></custom-button>
-        ${this._pageList(this.count).map(
-          (page, index) =>
-            html`<p
-              @click=${() => this.setCurrentPageNumber(index + 1)}
-              class="${this.currentPage === index + 1 ? 'active' : ''}"
-            >
-              ${page}
-            </p>`
-        )}
+        ${this._pageList(this.count).map((page, index) => {
+          return html`<p
+            @click=${() => this.setCurrentPageNumber(index + 1)}
+            class="${this.currentPage === index + 1 ? 'active' : ''}"
+          >
+            ${page}
+          </p>`;
+        })}
         <custom-button
           @click=${() =>
             this.setCurrentPageNumber(
@@ -80,7 +80,7 @@ export class ListingPagination extends LitElement {
   }
   setCurrentPageNumber(currentPage) {
     this.dispatchEvent(
-      new CustomEvent('page-selected', {detail: {currentPage}})
+      new CustomEvent('page-changed', {detail: {currentPage}})
     );
     this.currentPage = currentPage;
   }
