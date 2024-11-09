@@ -1,6 +1,8 @@
 import {LitElement, html, css} from 'lit';
-
-export class MyApp extends LitElement {
+import {connect} from 'pwa-helpers';
+import {store} from './store/store.js';
+import {setSearchValue} from './store/actions.js';
+export class MyApp extends connect(store)(LitElement) {
   static styles = css`
     main {
       display: flex;
@@ -9,15 +11,20 @@ export class MyApp extends LitElement {
       justify-content: flex-start;
       color: #1a2b42;
       text-align: center;
+      margin-top: 2rem;
     }
   `;
   firstUpdated() {
     super.firstUpdated();
   }
+  setSearchValue(e) {
+    store.dispatch(setSearchValue(e.detail.searchValue));
+  }
 
   render() {
     return html`
       <main>
+        <listing-header @input-updated=${this.setSearchValue}></listing-header>
         <slot></slot>
       </main>
     `;

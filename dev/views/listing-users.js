@@ -1,8 +1,12 @@
 import {LitElement, html, css} from 'lit';
-import {userList} from '../mock-data';
+import {mockUserList} from '../mock-data';
 import {ICON, NUMBER_OF_USERS_PER_PAGE} from '../constants';
 import {stringContains} from '../helpers';
-export class ListingUsers extends LitElement {
+import {connect} from 'pwa-helpers';
+import {store} from '../store/store.js';
+import {setUserList} from '../store/actions.js';
+
+export class ListingUsers extends connect(store)(LitElement) {
   static get styles() {
     return css`
       :host {
@@ -55,18 +59,24 @@ export class ListingUsers extends LitElement {
     currentUserList: {type: Array},
     currentPage: {type: Number},
   };
+  stateChanged(state) {
+    this.completeUserList = state.userList;
+    if (this.searchValue !== state.searchValue) {
+      this.searchValue = state.searchValue;
+      this.filterUserList();
+    }
+  }
 
   constructor() {
     super();
-    this.completeUserList = userList;
-    this.currentUserList = userList;
+    this.currentUserList = mockUserList;
     this.currentPage = 1;
     this.searchValue = '';
+    this.completeUserList = [];
   }
 
   render() {
     return html`
-      <listing-header @input-updated=${this.setSearchValue}></listing-header>
       <table class="user-table-container">
         <thead class="table-header-container">
           <tr>
@@ -94,14 +104,13 @@ export class ListingUsers extends LitElement {
   setSelectedPage(e) {
     this.currentPage = e.detail.currentPage;
   }
-  setSearchValue(e) {
-    this.searchValue = e.detail.searchValue;
-    this.filterUserList();
-  }
+
   deleteUser(userId) {
-    this.completeUserList = [
-      ...this.completeUserList.filter((user) => user.id !== userId),
-    ];
+    store.dispatch(
+      setUserList([
+        ...this.completeUserList.filter((user) => user.id !== userId),
+      ])
+    );
     this.filterUserList();
   }
   filterUserList() {
