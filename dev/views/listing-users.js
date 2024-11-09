@@ -1,5 +1,4 @@
 import {LitElement, html, css} from 'lit';
-import {mockUserList} from '../mock-data';
 import {ICON, NUMBER_OF_USERS_PER_PAGE} from '../constants';
 import {stringContains} from '../helpers';
 import {connect} from 'pwa-helpers';
@@ -69,7 +68,7 @@ export class ListingUsers extends connect(store)(LitElement) {
 
   constructor() {
     super();
-    this.currentUserList = mockUserList;
+    this.currentUserList = store.getState().userList;
     this.currentPage = 1;
     this.searchValue = '';
     this.completeUserList = [];
