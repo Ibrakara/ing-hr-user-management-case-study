@@ -24,7 +24,7 @@ export class MyApp extends connect(store)(LitElement) {
   render() {
     return html`
       <main>
-        <global-header @input-updated=${this.setSearchValue}></global-header>
+        <global-header @search-updated=${this.setSearchValue}></global-header>
         <slot></slot>
       </main>
     `;

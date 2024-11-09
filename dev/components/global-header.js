@@ -99,7 +99,7 @@ export class GlobalHeader extends LitElement {
             class="icon"
             @click=${() => Router.go('/')}
           />
-          <custom-search @input-updated=${this.updateSearch}></custom-search>
+          <custom-search @search-updated=${this.updateSearch}></custom-search>
         </div>
         <div class="global-header-right-side">
           <custom-button
@@ -118,7 +118,7 @@ export class GlobalHeader extends LitElement {
   }
   updateSearch(e) {
     this.dispatchEvent(
-      new CustomEvent('input-updated', {
+      new CustomEvent('search-updated', {
         detail: {searchValue: e.detail.searchInput},
       })
     );

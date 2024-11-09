@@ -58,7 +58,7 @@ export class CustomSearch extends LitElement {
   setInput(e) {
     this.searchInput = e.target.value;
     this.dispatchEvent(
-      new CustomEvent('input-updated', {
+      new CustomEvent('search-updated', {
         detail: {searchInput: this.searchInput},
       })
     );
