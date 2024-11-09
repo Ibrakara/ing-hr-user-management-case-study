@@ -2,7 +2,7 @@ import {LitElement, html, css} from 'lit';
 import {ICON} from '../constants';
 import {Router} from '@vaadin/router';
 
-export class ListingHeader extends LitElement {
+export class GlobalHeader extends LitElement {
   static get styles() {
     return css`
       .header-container {
@@ -14,7 +14,7 @@ export class ListingHeader extends LitElement {
         height: 2rem;
         align-items: center;
       }
-      .listing-header-left-side {
+      .global-header-left-side {
         display: flex;
         flex-direction: row;
         width: 100%;
@@ -23,11 +23,11 @@ export class ListingHeader extends LitElement {
         height: 2rem;
         align-items: center;
       }
-      .listing-header-left-side > img {
+      .global-header-left-side > img {
         height: 2rem;
         width: 2rem;
       }
-      .listing-header-right-side {
+      .global-header-right-side {
         display: flex;
         flex-direction: row;
         width: 100%;
@@ -57,7 +57,7 @@ export class ListingHeader extends LitElement {
   render() {
     return html`
       <div class="header-container">
-        <div class="listing-header-left-side">
+        <div class="global-header-left-side">
           <img
             src="../dev/assets/ING-bank-logo.svg"
             alt="Icon"
@@ -66,7 +66,7 @@ export class ListingHeader extends LitElement {
           />
           <custom-search @input-updated=${this.updateSearch}></custom-search>
         </div>
-        <div class="listing-header-right-side">
+        <div class="global-header-right-side">
           <custom-button
             @click=${() => Router.go('/')}
             name="Employees"
@@ -90,4 +90,4 @@ export class ListingHeader extends LitElement {
   }
 }
 
-window.customElements.define('listing-header', ListingHeader);
+window.customElements.define('global-header', GlobalHeader);
