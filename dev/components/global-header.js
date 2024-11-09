@@ -26,6 +26,7 @@ export class GlobalHeader extends LitElement {
       .global-header-left-side > img {
         height: 2rem;
         width: 2rem;
+        margin-right: 1rem;
       }
       .global-header-right-side {
         display: flex;
@@ -39,6 +40,40 @@ export class GlobalHeader extends LitElement {
       }
       .icon {
         cursor: pointer;
+      }
+      @media (max-width: 500px) {
+        .header-container {
+          flex-direction: column;
+          padding: 1rem 0;
+          height: 8rem;
+          gap: 0.3rem;
+          justify-content: space-between;
+        }
+        .global-header-left-side {
+          flex-direction: column;
+          justify-content: center;
+          justify-items: center;
+          align-items: center;
+          align-content: center;
+          background-color: white;
+          height: 5rem;
+          gap: 0.3rem;
+        }
+        .global-header-right-side {
+          flex-direction: column;
+          justify-content: center;
+          justify-items: center;
+          align-items: center;
+          align-content: center;
+          background-color: white;
+          height: 3rem;
+          gap: 0.3rem;
+        }
+        .global-header-left-side > img {
+          height: 32px;
+          width: 32px;
+          margin-right: 0rem;
+        }
       }
     `;
   }

@@ -7,21 +7,17 @@ export class CustomSearch extends LitElement {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        min-width: 30rem;
-        max-width: 60%;
         height: 2rem;
-        margin-left: 1rem;
       }
       .search-box {
-        width: 90%;
-        height: calc(2rem - 2px);
-        border-radius: 4px;
+        min-width: 200px;
+        height: 100%;
         border: none;
-        background-color: #fff;
+        background-color: #ffe9df;
         color: #1d1e32;
         font-size: 16px;
         font-weight: normal;
-        padding-left: 20px;
+        border-radius: 4px;
       }
       .search-box:focus {
         outline: none;
@@ -52,7 +48,7 @@ export class CustomSearch extends LitElement {
       <input
         type="text"
         .value=${this.searchInput}
-        placeholder="Search for a name, employment date etc. "
+        placeholder="Search for a user..."
         class="search-box"
         @input=${this.setInput}
         :disabled=${this.isSearchDisabled}
