@@ -1,12 +1,14 @@
 import {LitElement, html, css} from 'lit';
 import {ICON} from '../constants';
+import {Router} from '@vaadin/router';
+
 export class ListingHeader extends LitElement {
   static get styles() {
     return css`
-      :host {
+      .header-container {
         display: flex;
         flex-direction: row;
-        width: 100%;
+        width: 90vw;
         align-content: space-between;
         background-color: white;
         height: 2rem;
@@ -35,6 +37,9 @@ export class ListingHeader extends LitElement {
         background-color: white;
         height: 2rem;
       }
+      .icon {
+        cursor: pointer;
+      }
     `;
   }
 
@@ -51,13 +56,28 @@ export class ListingHeader extends LitElement {
 
   render() {
     return html`
-      <div class="listing-header-left-side">
-        <img src="../dev/assets/ING-bank-logo.svg" alt="Icon" class="icon" />
-        <custom-search @input-updated=${this.updateSearch}></custom-search>
-      </div>
-      <div class="listing-header-right-side">
-        <custom-button name="Employees" .icon=${ICON.USER}></custom-button>
-        <custom-button name="Add New" .icon=${ICON.PLUS}></custom-button>
+      <div class="header-container">
+        <div class="listing-header-left-side">
+          <img
+            src="../dev/assets/ING-bank-logo.svg"
+            alt="Icon"
+            class="icon"
+            @click=${() => Router.go('/')}
+          />
+          <custom-search @input-updated=${this.updateSearch}></custom-search>
+        </div>
+        <div class="listing-header-right-side">
+          <custom-button
+            @click=${() => Router.go('/')}
+            name="Employees"
+            .icon=${ICON.USER}
+          ></custom-button>
+          <custom-button
+            name="Add New"
+            .icon=${ICON.PLUS}
+            @click=${() => Router.go('/create')}
+          ></custom-button>
+        </div>
       </div>
     `;
   }
