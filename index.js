@@ -8,15 +8,10 @@ export {CreateAndEditUser} from './dev/views/create-user';
 export {MyApp} from './dev/my-app';
 export {Link} from './dev/components/app-link';
 export {CustomInput} from './dev/components/custom-input';
-import {Router} from '@vaadin/router';
-import {views} from './dev/router/index';
-
+import './dev/router';
 // add this to fix process undefined error
 window.process = {
   env: {
     NODE_ENV: 'development',
   },
 };
-export const router = new Router(document.querySelector('#outlet'));
-
-router.setRoutes(views);
