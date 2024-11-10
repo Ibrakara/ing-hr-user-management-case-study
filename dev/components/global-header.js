@@ -41,7 +41,7 @@ export class GlobalHeader extends LitElement {
       .icon {
         cursor: pointer;
       }
-      @media (max-width: 500px) {
+      @media (max-width: 600px) {
         .header-container {
           flex-direction: column;
           padding: 1rem 0;

@@ -13,7 +13,7 @@ export class CustomDropdown extends LitElement {
         appearance: none;
         width: 100%;
         font-size: 1.15rem;
-        padding: 0.675em 6em 0.675em 1em;
+        padding: 0.675em 3rem 0.675em 1rem;
         background-color: #fff;
         border: 2px solid #ff6200;
         border-radius: 0.25rem;

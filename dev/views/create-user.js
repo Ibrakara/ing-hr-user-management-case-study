@@ -45,7 +45,7 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
         margin-top: 12px;
       }
 
-      @media (max-width: 500px) {
+      @media (max-width: 600px) {
         :host {
           margin-top: 8rem;
         }
