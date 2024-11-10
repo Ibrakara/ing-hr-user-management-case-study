@@ -51,7 +51,7 @@ export class CustomSearch extends LitElement {
         placeholder="Search for a user..."
         class="search-box"
         @input=${this.setInput}
-        :disabled=${this.isSearchDisabled}
+        .disabled=${this.isSearchDisabled}
       />
     </div>`;
   }
