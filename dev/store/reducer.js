@@ -38,6 +38,11 @@ export const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         userForm: {...action.value},
       };
+    case STORE_ACTION_NAMES.RESET_USER_FORM:
+      return {
+        ...state,
+        userForm: {...INITIAL_STATE.userForm},
+      };
     case STORE_ACTION_NAMES.EDIT_USER:
       return {
         ...state,

@@ -62,6 +62,7 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
   }
   connectedCallback() {
     super.connectedCallback();
+    this.resetFormValues();
     if (this.isEditPage) this.setFormValuesForEdit();
   }
 
@@ -239,13 +240,14 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
   validateForm() {
     const state = store.getState();
     for (const property in state.userForm) {
-      this.validateAttribute(property, state.userForm[property], true);
+      this.validateAttribute(property, state.userForm[property], false);
     }
     const errorList = Object.values(this.formErrorObject);
     const isFormValid = errorList.every((entry) => entry === '');
+    this.requestUpdate();
     return isFormValid;
   }
-  validateAttribute(attribute, value) {
+  validateAttribute(attribute, value, requestUpdate = true) {
     const isInputEmpty = value === '';
     const phoneRegex = new RegExp(PHONE_REGEX);
     const mailRegex = new RegExp(EMAIL_REGEX);
@@ -260,7 +262,7 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
     } else {
       this.formErrorObject[attribute] = '';
     }
-    this.requestUpdate();
+    if (requestUpdate) this.requestUpdate();
     return !isInputInvaild;
   }
   get pageName() {
@@ -285,6 +287,10 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
     store.dispatch(
       setState({type: STORE_ACTION_NAMES.SET_USER_FORM, value: user})
     );
+  }
+  resetFormValues() {
+    store.dispatch(setState({type: STORE_ACTION_NAMES.RESET_USER_FORM}));
+    this.requestUpdate();
   }
 }
 
