@@ -33,4 +33,17 @@ export const STORE_ACTION_NAMES = {
   SET_FORM_DEPARTMENT: 'SET_FORM_DEPARTMENT',
   SET_FORM_POSITION: 'SET_FORM_POSITION',
 };
-export const PHONE_REGEX = '^(?:[+0]9)?[0-9]{10}$';
+export const PHONE_REGEX = '^[+][(][0-9]{2}[)][0-9]{10}$';
+export const EMAIL_REGEX = '^w*?[a-zA-Z]w+@[a-zd-]+(.[a-zd-]+)*.[a-z]+z';
+export const FORM_ERROR = {
+  name: 'This field can not be empty',
+  lastName: 'This field can not be empty',
+  dateOfEmployment: 'This field can not be empty',
+  dateOfBirth: 'This field can not be empty',
+  phoneNumber:
+    'This field can not be empty and should be in +(90)5555555555 format',
+  email:
+    'This field can not be empty and should be in example@example.com format',
+  department: 'This field can not be empty',
+  position: 'This field can not be empty',
+};
