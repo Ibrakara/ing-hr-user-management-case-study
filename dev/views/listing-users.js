@@ -53,6 +53,47 @@ export class ListingUsers extends connect(store)(LitElement) {
         height: 3rem;
         text-align: center;
       }
+      @media (max-width: 730px) {
+        :host {
+          padding: 0.2rem;
+        }
+        .table-header-container {
+          display: none;
+        }
+        .table-content-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 20px;
+          max-width: 1200px;
+        }
+        tr {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        td {
+          height: auto;
+        }
+        .user-row {
+          background-color: #fff;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          padding: 20px;
+          width: auto;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-row h3 {
+          margin-bottom: 10px;
+          color: #333;
+        }
+
+        .user-row p {
+          margin-bottom: 15px;
+          color: #666;
+        }
+      }
     `;
   }
   static properties = {
@@ -91,7 +132,7 @@ export class ListingUsers extends connect(store)(LitElement) {
             <th class="table-header-title">Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="table-content-container">
           ${this.employeeListPerPage}
         </tbody>
       </table>
