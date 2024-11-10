@@ -67,8 +67,9 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
       formErrorObject: {type: Object},
     };
   }
-  stateChanged(state) {
-    console.log(state);
+  connectedCallback() {
+    super.connectedCallback();
+    if (this.isEditPage) this.setFormValuesForEdit();
   }
 
   constructor() {
@@ -105,6 +106,7 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
           error=${this.formErrorObject.name}
           .required=${true}
           label="Name"
+          inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.NAME)}
         ></custom-input>
         <custom-input
           @input-updated=${(e) => {
@@ -116,6 +118,7 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
           }}
           error=${this.formErrorObject.lastName}
           label="Last Name"
+          inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.LAST_NAME)}
         ></custom-input>
         <custom-input
           @input-updated=${(e) => {
@@ -128,6 +131,9 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
           error=${this.formErrorObject.dateOfEmployment}
           type="date"
           label="Date of Employement"
+          inputValue=${this.getFormAttribute(
+            FORM_ATTRIBUTES.DATE_OF_EMPLOYMENT
+          )}
         ></custom-input>
         <custom-input
           @input-updated=${(e) => {
@@ -140,6 +146,7 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
           error=${this.formErrorObject.dateOfBirth}
           type="date"
           label="Date of Birth"
+          inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.DATE_OF_BIRTH)}
         ></custom-input>
         <custom-input
           @input-updated=${(e) => {
@@ -152,6 +159,7 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
           error=${this.formErrorObject.phoneNumber}
           type="tel"
           label="Phone Number"
+          inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.PHONE_NUMBER)}
         ></custom-input>
         <custom-input
           @input-updated=${(e) => {
@@ -160,6 +168,7 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
           }}
           error=${this.formErrorObject.email}
           label="Email"
+          inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.EMAIL)}
         ></custom-input>
         <custom-dropdown
           @validate=${(e) => {
@@ -175,6 +184,7 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
           class="form-dropdown"
           placeHolder="Choose Department"
           .optionList=${DEPARTMENT_OPTION_LIST}
+          inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.DEPARTMENT)}
         ></custom-dropdown>
         <custom-dropdown
           @validate=${(e) => {
@@ -190,10 +200,11 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
           class="form-dropdown"
           placeHolder="Choose Position"
           .optionList=${POSITION_OPTION_LIST}
+          inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.POSITION)}
         ></custom-dropdown>
         <custom-button
           .hasBorder=${true}
-          @click=${this.createUser}
+          @click=${this.confirmForm}
           class="form-button"
           name=${this.pageName}
         ></custom-button>
@@ -205,15 +216,25 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
       setState({type: actionType, value: event.detail.inputValue})
     );
   }
-  createUser() {
+  confirmForm() {
     const isFormValid = this.validateForm();
     if (!isFormValid) return;
-    store.dispatch(
-      setState({
-        type: STORE_ACTION_NAMES.ADD_USER,
-      })
-    );
-    Router.go('/create');
+    if (this.isEditPage) {
+      const userId = this.getEditedUserId;
+      store.dispatch(
+        setState({
+          type: STORE_ACTION_NAMES.EDIT_USER,
+          value: userId,
+        })
+      );
+    } else {
+      store.dispatch(
+        setState({
+          type: STORE_ACTION_NAMES.ADD_USER,
+        })
+      );
+    }
+    Router.go('/');
   }
   validateForm() {
     const state = store.getState();
@@ -243,7 +264,23 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
     return !isInputInvaild;
   }
   get pageName() {
-    return router.location.pathname === '/create' ? 'Create User' : 'Edit User';
+    return this.isEditPage ? 'Edit User' : 'Create User';
+  }
+  get isEditPage() {
+    return router.location.pathname.includes('edit');
+  }
+  get getEditedUserId() {
+    return router.location.params.userId;
+  }
+  getFormAttribute(attributeName) {
+    return store.getState().userForm[attributeName];
+  }
+  setFormValuesForEdit() {
+    const userId = this.getEditedUserId;
+    const user = store.getState().userList.find((user) => user.id === userId);
+    store.dispatch(
+      setState({type: STORE_ACTION_NAMES.SET_USER_FORM, value: user})
+    );
   }
 }
 
