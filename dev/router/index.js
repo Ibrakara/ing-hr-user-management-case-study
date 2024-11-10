@@ -1,14 +1,14 @@
 import {Router} from '@vaadin/router';
 export const views = [
   {
-    path: '/create',
+    path: '/',
     component: 'listing-users',
     action: async () => {
       await import('../views/listing-users');
     },
   },
   {
-    path: '/',
+    path: '/create',
     component: 'create-and-edit-user',
     action: async () => {
       await import('../views/create-user');

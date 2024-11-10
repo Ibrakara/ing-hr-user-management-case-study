@@ -21,6 +21,10 @@ export class CustomButton extends LitElement {
         width: auto;
         height: 24px;
       }
+      .has-border {
+        border: 1px solid #ff6200;
+        border-radius: 2px;
+      }
     `;
   }
 
@@ -28,26 +32,27 @@ export class CustomButton extends LitElement {
     return {
       icon: {type: String},
       name: {type: String},
+      hasBorder: {type: Boolean},
     };
   }
 
   constructor() {
     super();
     this.name = null;
+    this.hasBorder = false;
   }
 
   render() {
     return html`
-      <button class="custom-button">
+      <button
+        class=${this.hasBorder ? 'custom-button has-border' : 'custom-button'}
+      >
         ${this.icon
           ? html`<img src=${this.imageSource} alt="Icon" class="icon" />`
           : ''}
         ${ifDefined(this.name)}
       </button>
     `;
-  }
-  sayHello(name) {
-    return `Hello, ${name}`;
   }
   get imageSource() {
     return `../dev/assets/${this.icon}.svg`;
