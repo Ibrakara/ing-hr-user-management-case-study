@@ -1,7 +1,8 @@
 import {LitElement, html, css} from 'lit';
 import {connect} from 'pwa-helpers';
 import {store} from './store/store.js';
-import {setSearchValue} from './store/actions.js';
+import {setState} from './store/actions.js';
+import {STORE_ACTION_NAMES} from './constants/index.js';
 export class MyApp extends connect(store)(LitElement) {
   static styles = css`
     main {
@@ -18,7 +19,12 @@ export class MyApp extends connect(store)(LitElement) {
     super.firstUpdated();
   }
   setSearchValue(e) {
-    store.dispatch(setSearchValue(e.detail.searchValue));
+    store.dispatch(
+      setState({
+        type: STORE_ACTION_NAMES.SET_SEARCH_VALUE,
+        value: e.detail.searchValue,
+      })
+    );
   }
 
   render() {

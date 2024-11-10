@@ -1,9 +1,9 @@
 import {LitElement, html, css} from 'lit';
-import {ICON, NUMBER_OF_USERS_PER_PAGE} from '../constants';
+import {ICON, NUMBER_OF_USERS_PER_PAGE, STORE_ACTION_NAMES} from '../constants';
 import {stringContains} from '../helpers';
 import {connect} from 'pwa-helpers';
 import {store} from '../store/store.js';
-import {setUserList} from '../store/actions.js';
+import {setState} from '../store/actions.js';
 
 export class ListingUsers extends connect(store)(LitElement) {
   static get styles() {
@@ -106,9 +106,10 @@ export class ListingUsers extends connect(store)(LitElement) {
 
   deleteUser(userId) {
     store.dispatch(
-      setUserList([
-        ...this.completeUserList.filter((user) => user.id !== userId),
-      ])
+      setState({
+        type: STORE_ACTION_NAMES.SET_USER_LIST,
+        value: [...this.completeUserList.filter((user) => user.id !== userId)],
+      })
     );
     this.filterUserList();
   }
