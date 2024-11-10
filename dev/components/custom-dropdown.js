@@ -36,14 +36,14 @@ export class CustomDropdown extends LitElement {
         border-left: var(--size) solid transparent;
         border-right: var(--size) solid transparent;
         border-bottom: var(--size) solid black;
-        top: 40%;
+        top: 25%;
       }
 
       .custom-select::after {
         border-left: var(--size) solid transparent;
         border-right: var(--size) solid transparent;
         border-top: var(--size) solid black;
-        top: 55%;
+        top: 40%;
       }
       .form-error {
         position: absolute;
@@ -90,7 +90,6 @@ export class CustomDropdown extends LitElement {
     </div>`;
   }
   setInput(e) {
-    console.log(e.target.value);
     this.dispatchEvent(
       new CustomEvent('selection-updated', {
         detail: {selection: e.target.value},
