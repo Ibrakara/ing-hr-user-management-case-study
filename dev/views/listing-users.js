@@ -66,11 +66,9 @@ export class ListingUsers extends connect(store)(LitElement) {
           justify-content: center;
           gap: 20px;
           max-width: 1200px;
-        }
-        tr {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
+          background-color: white;
+          padding-top: 2rem;
+          margin-top: 2rem;
         }
         td {
           height: auto;
@@ -80,8 +78,11 @@ export class ListingUsers extends connect(store)(LitElement) {
           border: 1px solid #ddd;
           border-radius: 8px;
           padding: 20px;
-          width: auto;
+          width: 200px;
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
 
         .user-row h3 {
@@ -99,6 +100,8 @@ export class ListingUsers extends connect(store)(LitElement) {
   static properties = {
     currentUserList: {type: Array},
     currentPage: {type: Number},
+    isComfirmModalVisible: {type: Boolean},
+    userIdForUserToBeDeleted: {type: String},
   };
   stateChanged(state) {
     this.completeUserList = state.userList;
@@ -114,6 +117,8 @@ export class ListingUsers extends connect(store)(LitElement) {
     this.currentPage = 1;
     this.searchValue = '';
     this.completeUserList = [];
+    this.isComfirmModalVisible = false;
+    this.userIdForUserToBeDeleted = '';
   }
 
   render() {
@@ -140,7 +145,22 @@ export class ListingUsers extends connect(store)(LitElement) {
         @page-changed=${this.setSelectedPage}
         count=${this.pageCount}
       ></listing-pagination>
+      <custom-modal
+        title="Delete user?"
+        description="You are about to delete a user, are you sure?"
+        .isVisible=${this.isComfirmModalVisible}
+        @cancelled=${this.hideConfirmModal}
+        @approved=${() => this.deleteUser(this.userIdForUserToBeDeleted)}
+      ></custom-modal>
     `;
+  }
+  hideConfirmModal() {
+    this.isComfirmModalVisible = false;
+    this.requestUpdate();
+  }
+  showConfimModal(id) {
+    this.isComfirmModalVisible = true;
+    this.userIdForUserToBeDeleted = id;
   }
   setSelectedPage(e) {
     this.currentPage = e.detail.currentPage;
@@ -149,14 +169,15 @@ export class ListingUsers extends connect(store)(LitElement) {
     Router.go(`/edit/${id}`);
   }
 
-  deleteUser(userId) {
+  deleteUser(id) {
     store.dispatch(
       setState({
         type: STORE_ACTION_NAMES.SET_USER_LIST,
-        value: [...this.completeUserList.filter((user) => user.id !== userId)],
+        value: [...this.completeUserList.filter((user) => user.id !== id)],
       })
     );
     this.filterUserList();
+    this.hideConfirmModal();
   }
   filterUserList() {
     this.currentUserList = [
@@ -232,7 +253,7 @@ export class ListingUsers extends connect(store)(LitElement) {
               .icon=${ICON.EDIT}
             ></custom-button>
             <custom-button
-              @click=${() => this.deleteUser(item.id)}
+              @click=${() => this.showConfimModal(item.id)}
               .icon=${ICON.DELETE}
             ></custom-button>
           </td>
