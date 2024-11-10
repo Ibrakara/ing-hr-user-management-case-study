@@ -11,14 +11,14 @@ export const views = [
     path: '/create',
     component: 'create-and-edit-user',
     action: async () => {
-      await import('../views/create-user');
+      await import('../views/create-and-edit-user');
     },
   },
   {
     path: '/edit/:userId',
     component: 'create-and-edit-user',
     action: async () => {
-      await import('../views/create-user');
+      await import('../views/create-and-edit-user');
     },
   },
   {path: '(.*)', redirect: '/'},
