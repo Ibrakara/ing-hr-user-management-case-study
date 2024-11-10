@@ -80,7 +80,6 @@ export class CustomInput extends LitElement {
       inputValue: {type: String},
       label: {type: String},
       type: {type: String},
-      pattern: {type: String},
       error: {type: String},
     };
   }
@@ -101,7 +100,6 @@ export class CustomInput extends LitElement {
         placeholder=${this.label}
         name=${this.label}
         id=${this.label}
-        pattern=${this.pattern}
         .value=${this.inputValue}
         @input=${this.setInput}
         @blur=${this.validate}
