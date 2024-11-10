@@ -8,6 +8,7 @@ export {CreateAndEditUser} from './dev/views/create-user';
 export {MyApp} from './dev/my-app';
 export {CustomInput} from './dev/components/custom-input';
 export {CustomDropdown} from './dev/components/custom-dropdown';
+export {CustomModal} from './dev/components/custom-modal';
 import './dev/router';
 // add this to fix process undefined error
 window.process = {
