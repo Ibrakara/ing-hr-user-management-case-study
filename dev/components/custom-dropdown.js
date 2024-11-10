@@ -79,7 +79,12 @@ export class CustomDropdown extends LitElement {
 
   render() {
     return html`<div class="custom-select">
-      <select @input=${this.setInput} @click=${this.validate}>
+      <select
+        @input=${(e) => {
+          this.setInput(e);
+          this.validate(e);
+        }}
+      >
         <option value=${this.placeHolder}>${this.placeHolder}</option>
         ${this.optionList.map((option) => {
           return html`<option value=${option}>${option}</option>`;
@@ -91,7 +96,7 @@ export class CustomDropdown extends LitElement {
   setInput(e) {
     this.dispatchEvent(
       new CustomEvent('selection-updated', {
-        detail: {selection: e.target.value},
+        detail: {inputValue: e.target.value},
       })
     );
   }
