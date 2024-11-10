@@ -15,9 +15,10 @@ export class CustomButton extends LitElement {
         cursor: pointer;
         height: auto;
         display: flex;
+        font-size: 1rem;
       }
       .custom-button > img {
-        width: 24px;
+        width: auto;
         height: 24px;
       }
     `;
@@ -38,7 +39,9 @@ export class CustomButton extends LitElement {
   render() {
     return html`
       <button class="custom-button">
-        <img src=${this.imageSource} alt="Icon" class="icon" />
+        ${this.icon
+          ? html`<img src=${this.imageSource} alt="Icon" class="icon" />`
+          : ''}
         ${ifDefined(this.name)}
       </button>
     `;
