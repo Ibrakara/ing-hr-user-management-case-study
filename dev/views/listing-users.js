@@ -4,6 +4,7 @@ import {stringContains} from '../helpers';
 import {connect} from 'pwa-helpers';
 import {store} from '../store/store.js';
 import {setState} from '../store/actions.js';
+import {Router} from '@vaadin/router';
 
 export class ListingUsers extends connect(store)(LitElement) {
   static get styles() {
@@ -103,6 +104,9 @@ export class ListingUsers extends connect(store)(LitElement) {
   setSelectedPage(e) {
     this.currentPage = e.detail.currentPage;
   }
+  goEditPage(id) {
+    Router.go(`/edit/${id}`);
+  }
 
   deleteUser(userId) {
     store.dispatch(
@@ -182,7 +186,10 @@ export class ListingUsers extends connect(store)(LitElement) {
           <td>${item.department}</td>
           <td>${item.position}</td>
           <td>
-            <custom-button .icon=${ICON.EDIT}></custom-button>
+            <custom-button
+              @click=${() => this.goEditPage(item.id)}
+              .icon=${ICON.EDIT}
+            ></custom-button>
             <custom-button
               @click=${() => this.deleteUser(item.id)}
               .icon=${ICON.DELETE}
