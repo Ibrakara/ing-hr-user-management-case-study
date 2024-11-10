@@ -5,14 +5,13 @@ export class CustomInput extends LitElement {
       :host {
         width: 100%;
       }
-      .form__group {
+      .form-group {
         position: relative;
-        padding: 15px 0 0;
-        margin-top: 10px;
+        padding: 20px 0;
         min-width: 80%;
       }
 
-      .form__field {
+      .form-field {
         font-family: inherit;
         width: 100%;
         border: 0;
@@ -29,7 +28,7 @@ export class CustomInput extends LitElement {
         }
       }
 
-      .form__label {
+      .form-label {
         position: absolute;
         top: 0;
         display: block;
@@ -42,9 +41,22 @@ export class CustomInput extends LitElement {
         width: 80%;
         text-align: start;
       }
-
-      .form__field:focus {
-        ~ .form__label {
+      .form-error {
+        position: absolute;
+        top: 50px;
+        display: block;
+        transition: 0.2s;
+        font-size: 0.8rem;
+        color: #b80000;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 80%;
+        text-align: start;
+        font-weight: 600;
+      }
+      .form-field:focus {
+        ~ .form-label {
           position: absolute;
           top: 0;
           display: block;
@@ -58,13 +70,6 @@ export class CustomInput extends LitElement {
         border-width: 3px;
         border-image-slice: 1;
       }
-      /* reset input */
-      .form__field {
-        &:required,
-        &:invalid {
-          /* box-shadow: none; */
-        }
-      }
     `;
   }
 
@@ -74,6 +79,9 @@ export class CustomInput extends LitElement {
       placeHolder: {type: String},
       inputValue: {type: String},
       label: {type: String},
+      type: {type: String},
+      pattern: {type: String},
+      error: {type: String},
     };
   }
 
@@ -81,21 +89,24 @@ export class CustomInput extends LitElement {
     super();
     this.inputValue = '';
     this.isSearchDisabled = false;
+    this.type = 'text';
+    this.error = '';
   }
 
   render() {
-    return html`<div class="form__group">
+    return html`<div class="form-group">
       <input
-        type="text"
-        class="form__field"
+        .type=${this.type}
+        class="form-field"
         placeholder=${this.label}
         name=${this.label}
-        id="name"
-        required
+        id=${this.label}
+        pattern=${this.pattern}
         .value=${this.inputValue}
         @input=${this.setInput}
       />
-      <label for="name" class="form__label">${this.label}</label>
+      <span class="form-error">${this.error}</span>
+      <label for=${this.label} class="form-label">${this.label}</label>
     </div>`;
   }
   setInput(e) {
