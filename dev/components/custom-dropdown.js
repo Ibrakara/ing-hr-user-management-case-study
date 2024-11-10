@@ -67,6 +67,7 @@ export class CustomDropdown extends LitElement {
       placeHolder: {type: String},
       optionList: {type: Array},
       error: {type: String},
+      inputValue: {type: String},
     };
   }
 
@@ -75,6 +76,7 @@ export class CustomDropdown extends LitElement {
     this.optionList = [];
     this.error = '';
     this.placeHolder = 'Please select...';
+    this.inputValue = '';
   }
 
   render() {
@@ -87,7 +89,12 @@ export class CustomDropdown extends LitElement {
       >
         <option value=${this.placeHolder}>${this.placeHolder}</option>
         ${this.optionList.map((option) => {
-          return html`<option value=${option}>${option}</option>`;
+          return html`<option
+            .selected=${this.inputValue === option}
+            value=${option}
+          >
+            ${option}
+          </option>`;
         })}
       </select>
       <span class="form-error">${this.error}</span>
