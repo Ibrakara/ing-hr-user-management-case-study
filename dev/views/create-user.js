@@ -56,14 +56,7 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
 
   static properties() {
     return {
-      name: {type: String},
-      lastName: {type: String},
-      dateOfEmployment: {type: String},
-      dateOfBirth: {type: String},
-      phoneNumber: {type: String},
-      email: {type: String},
-      department: {type: String},
-      position: {type: String},
+      isComfirmModalVisible: {type: Boolean},
       formErrorObject: {type: Object},
     };
   }
@@ -74,14 +67,6 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
 
   constructor() {
     super();
-    this.name = '';
-    this.lastName = '';
-    this.dateOfEmployment = '';
-    this.dateOfBirth = '';
-    this.phoneNumber = '';
-    this.email = '';
-    this.department = '';
-    this.position = '';
     this.formErrorObject = {
       name: '',
       lastName: '',
@@ -92,6 +77,7 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
       department: '',
       position: '',
     };
+    this.isComfirmModalVisible = false;
   }
 
   render() {
@@ -209,6 +195,13 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
           name=${this.pageName}
         ></custom-button>
       </div>
+      <custom-modal
+        title="Edit user?"
+        description="You are about to save the changes, are you sure?"
+        .isVisible=${this.isComfirmModalVisible}
+        @cancelled=${this.hideConfirmModal}
+        @approved=${this.editUser}
+      ></custom-modal>
     `;
   }
   setInput(actionType, event) {
@@ -220,20 +213,27 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
     const isFormValid = this.validateForm();
     if (!isFormValid) return;
     if (this.isEditPage) {
-      const userId = this.getEditedUserId;
-      store.dispatch(
-        setState({
-          type: STORE_ACTION_NAMES.EDIT_USER,
-          value: userId,
-        })
-      );
+      this.isComfirmModalVisible = true;
     } else {
-      store.dispatch(
-        setState({
-          type: STORE_ACTION_NAMES.ADD_USER,
-        })
-      );
+      this.createUser();
     }
+  }
+  editUser() {
+    const userId = this.getEditedUserId;
+    store.dispatch(
+      setState({
+        type: STORE_ACTION_NAMES.EDIT_USER,
+        value: userId,
+      })
+    );
+    Router.go('/');
+  }
+  createUser() {
+    store.dispatch(
+      setState({
+        type: STORE_ACTION_NAMES.ADD_USER,
+      })
+    );
     Router.go('/');
   }
   validateForm() {
@@ -274,6 +274,10 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
   }
   getFormAttribute(attributeName) {
     return store.getState().userForm[attributeName];
+  }
+  hideConfirmModal() {
+    this.isComfirmModalVisible = false;
+    this.requestUpdate();
   }
   setFormValuesForEdit() {
     const userId = this.getEditedUserId;
