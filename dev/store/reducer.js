@@ -4,14 +4,16 @@ import {mockUserList} from '../mock-data.js';
 const INITIAL_STATE = {
   userList: mockUserList,
   searchValue: '',
-  formName: '',
-  formLastName: '',
-  formDateOfEmployement: '',
-  formDateOfBirth: '',
-  formPhoneNumber: '',
-  formEmail: '',
-  formDepartment: '',
-  formPosition: '',
+  userForm: {
+    name: '',
+    lastName: '',
+    dateOfEmployment: '',
+    dateOfBirth: '',
+    phoneNumber: '',
+    email: '',
+    department: '',
+    position: '',
+  },
 };
 
 export const reducer = (state = INITIAL_STATE, action) => {
@@ -26,45 +28,50 @@ export const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         userList: action.value,
       };
+    case STORE_ACTION_NAMES.ADD_USER:
+      return {
+        ...state,
+        userList: [...state.userList, {...state.userForm}],
+      };
     case STORE_ACTION_NAMES.SET_FORM_NAME:
       return {
         ...state,
-        formName: action.value,
+        userForm: {...state.userForm, name: action.value},
       };
     case STORE_ACTION_NAMES.SET_FORM_LAST_NAME:
       return {
         ...state,
-        formLastName: action.value,
+        userForm: {...state.userForm, lastName: action.value},
       };
     case STORE_ACTION_NAMES.SET_FORM_DATE_OF_EMPLOYMENT:
       return {
         ...state,
-        formDateOfEmployement: action.value,
+        userForm: {...state.userForm, dateOfEmployment: action.value},
       };
     case STORE_ACTION_NAMES.SET_FORM_DATE_OF_BIRTH:
       return {
         ...state,
-        formDateOfBirth: action.value,
+        userForm: {...state.userForm, dateOfBirth: action.value},
       };
     case STORE_ACTION_NAMES.SET_FORM_PHONE_NUMBER:
       return {
         ...state,
-        formPhoneNumber: action.value,
+        userForm: {...state.userForm, phoneNumber: action.value},
       };
     case STORE_ACTION_NAMES.SET_FORM_EMAIL:
       return {
         ...state,
-        formEmail: action.value,
+        userForm: {...state.userForm, email: action.value},
       };
     case STORE_ACTION_NAMES.SET_FORM_DEPARTMENT:
       return {
         ...state,
-        formDepartment: action.value,
+        userForm: {...state.userForm, department: action.value},
       };
     case STORE_ACTION_NAMES.SET_FORM_POSITION:
       return {
         ...state,
-        formPosition: action.value,
+        userForm: {...state.userForm, position: action.value},
       };
     default:
       return state;
