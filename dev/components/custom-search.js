@@ -10,7 +10,7 @@ export class CustomSearch extends LitElement {
         height: 2rem;
       }
       .search-box {
-        min-width: 200px;
+        min-width: 250px;
         height: 100%;
         border: none;
         background-color: #ffe9df;

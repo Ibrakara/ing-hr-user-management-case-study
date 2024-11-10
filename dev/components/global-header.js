@@ -11,7 +11,7 @@ export class GlobalHeader extends LitElement {
         width: 90vw;
         align-content: space-between;
         background-color: white;
-        height: 2rem;
+        height: 3rem;
         align-items: center;
       }
       .global-header-left-side {

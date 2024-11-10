@@ -15,7 +15,7 @@ export class ListingUsers extends connect(store)(LitElement) {
         align-items: center;
         padding: 2rem;
         gap: 2rem;
-        width: 90%;
+        width: 100%;
       }
       .user-table-container {
         border-spacing: 0;
