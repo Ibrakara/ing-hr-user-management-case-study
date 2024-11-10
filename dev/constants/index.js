@@ -11,3 +11,26 @@ export const ICON = {
 export const NUMBER_OF_USERS_PER_PAGE = 10;
 export const DEPARTMENT_OPTION_LIST = ['Analytics', 'Tech'];
 export const POSITION_OPTION_LIST = ['Junior', 'Medior', 'Senior'];
+export const FORM_ATTRIBUTES = {
+  NAME: 'name',
+  LAST_NAME: 'lastName',
+  DATE_OF_EMPLOYMENT: 'dateOfEmployment',
+  DATE_OF_BIRTH: 'dateOfBirth',
+  PHONE_NUMBER: 'phoneNumber',
+  EMAIL: 'email',
+  DEPARTMENT: 'department',
+  POSITION: 'position',
+};
+export const STORE_ACTION_NAMES = {
+  SET_USER_LIST: 'SET_USER_LIST',
+  SET_SEARCH_VALUE: 'SET_SEARCH_VALUE',
+  SET_FORM_NAME: 'SET_FORM_NAME',
+  SET_FORM_LAST_NAME: 'SET_FORM_LAST_NAME',
+  SET_FORM_DATE_OF_EMPLOYMENT: 'SET_FORM_DATE_OF_EMPLOYMENT',
+  SET_FORM_DATE_OF_BIRTH: 'SET_FORM_DATE_OF_BIRTH',
+  SET_FORM_PHONE_NUMBER: 'SET_FORM_PHONE_NUMBER',
+  SET_FORM_EMAIL: 'SET_FORM_EMAIL',
+  SET_FORM_DEPARTMENT: 'SET_FORM_DEPARTMENT',
+  SET_FORM_POSITION: 'SET_FORM_POSITION',
+};
+export const PHONE_REGEX = '^(?:[+0]9)?[0-9]{10}$';
