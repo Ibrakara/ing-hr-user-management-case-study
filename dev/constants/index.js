@@ -22,6 +22,7 @@ export const FORM_ATTRIBUTES = {
   POSITION: 'position',
 };
 export const STORE_ACTION_NAMES = {
+  SET_USER_FORM: 'SET_USER_FORM',
   SET_USER_LIST: 'SET_USER_LIST',
   SET_SEARCH_VALUE: 'SET_SEARCH_VALUE',
   SET_FORM_NAME: 'SET_FORM_NAME',
@@ -33,6 +34,7 @@ export const STORE_ACTION_NAMES = {
   SET_FORM_DEPARTMENT: 'SET_FORM_DEPARTMENT',
   SET_FORM_POSITION: 'SET_FORM_POSITION',
   ADD_USER: 'ADD_USER',
+  EDIT_USER: 'EDIT_USER',
 };
 export const PHONE_REGEX = '^[+][(][0-9]{2}[)][0-9]{10}$';
 export const EMAIL_REGEX = '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}';
