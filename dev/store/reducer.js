@@ -33,6 +33,23 @@ export const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         userList: [...state.userList, {...state.userForm}],
       };
+    case STORE_ACTION_NAMES.SET_USER_FORM:
+      return {
+        ...state,
+        userForm: {...action.value},
+      };
+    case STORE_ACTION_NAMES.EDIT_USER:
+      return {
+        ...state,
+        userList: [
+          ...state.userList.map((user) => {
+            if (user.id === action.value) {
+              user = {...user, ...state.userForm};
+            }
+            return user;
+          }),
+        ],
+      };
     case STORE_ACTION_NAMES.SET_FORM_NAME:
       return {
         ...state,
