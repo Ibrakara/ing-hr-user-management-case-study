@@ -6,7 +6,6 @@ export {GlobalHeader} from './dev/components/global-header';
 export {CustomSearch} from './dev/components/custom-search';
 export {CreateAndEditUser} from './dev/views/create-user';
 export {MyApp} from './dev/my-app';
-export {Link} from './dev/components/app-link';
 export {CustomInput} from './dev/components/custom-input';
 export {CustomDropdown} from './dev/components/custom-dropdown';
 import './dev/router';
