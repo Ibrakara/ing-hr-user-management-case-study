@@ -104,6 +104,7 @@ export class CustomInput extends LitElement {
         pattern=${this.pattern}
         .value=${this.inputValue}
         @input=${this.setInput}
+        @blur=${this.validate}
       />
       <span class="form-error">${this.error}</span>
       <label for=${this.label} class="form-label">${this.label}</label>
@@ -114,6 +115,13 @@ export class CustomInput extends LitElement {
     this.dispatchEvent(
       new CustomEvent('input-updated', {
         detail: {inputValue: this.inputValue},
+      })
+    );
+  }
+  validate(e) {
+    this.dispatchEvent(
+      new CustomEvent('validate', {
+        detail: {inputValue: e.target.value},
       })
     );
   }
