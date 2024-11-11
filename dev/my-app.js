@@ -3,6 +3,7 @@ import {connect} from 'pwa-helpers';
 import {store} from './store/store.js';
 import {setState} from './store/actions.js';
 import {STORE_ACTION_NAMES} from './constants/index.js';
+import router from '../dev/router';
 export class MyApp extends connect(store)(LitElement) {
   static styles = css`
     main {
@@ -15,8 +16,29 @@ export class MyApp extends connect(store)(LitElement) {
       margin-top: 2rem;
     }
   `;
+  static get properties() {
+    return {
+      isListingPage: {type: Boolean},
+    };
+  }
   firstUpdated() {
     super.firstUpdated();
+  }
+  constructor() {
+    super();
+    this.isListingPage = true;
+  }
+
+  render() {
+    return html`
+      <main>
+        <global-header
+          .showSearchInputComponent=${this.isListingPage}
+          @search-updated=${this.setSearchValue}
+        ></global-header>
+        <slot @slotchange=${() => this.setSearchBarVisibility()}></slot>
+      </main>
+    `;
   }
   setSearchValue(e) {
     store.dispatch(
@@ -26,14 +48,8 @@ export class MyApp extends connect(store)(LitElement) {
       })
     );
   }
-
-  render() {
-    return html`
-      <main>
-        <global-header @search-updated=${this.setSearchValue}></global-header>
-        <slot></slot>
-      </main>
-    `;
+  setSearchBarVisibility() {
+    this.isListingPage = router.location.route.path === '/';
   }
 }
 
