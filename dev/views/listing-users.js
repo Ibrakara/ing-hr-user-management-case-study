@@ -110,6 +110,14 @@ export class ListingUsers extends connect(store)(LitElement) {
       this.filterUserList();
     }
   }
+  disconnectedCallback() {
+    store.dispatch(
+      setState({
+        type: STORE_ACTION_NAMES.SET_SEARCH_VALUE,
+        value: '',
+      })
+    );
+  }
 
   constructor() {
     super();
