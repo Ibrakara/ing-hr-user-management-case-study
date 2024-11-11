@@ -21,9 +21,6 @@ export class MyApp extends connect(store)(LitElement) {
       isListingPage: {type: Boolean},
     };
   }
-  firstUpdated() {
-    super.firstUpdated();
-  }
   constructor() {
     super();
     this.isListingPage = true;
@@ -34,17 +31,17 @@ export class MyApp extends connect(store)(LitElement) {
       <main>
         <global-header
           .showSearchInputComponent=${this.isListingPage}
-          @search-updated=${this.setSearchValue}
+          @search-updated=${(e) => this.setSearchValue(e.detail.searchValue)}
         ></global-header>
         <slot @slotchange=${() => this.setSearchBarVisibility()}></slot>
       </main>
     `;
   }
-  setSearchValue(e) {
+  setSearchValue(value) {
     store.dispatch(
       setState({
         type: STORE_ACTION_NAMES.SET_SEARCH_VALUE,
-        value: e.detail.searchValue,
+        value: value,
       })
     );
   }
