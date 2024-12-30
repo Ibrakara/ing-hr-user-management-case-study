@@ -92,7 +92,7 @@ export class ListingUsers extends connect(store)(LitElement) {
           gap: 20px;
           max-width: 1200px;
           background-color: white;
-          padding-top: 2rem;
+          padding: 2rem 0 2rem 0;
         }
         td {
           height: auto;
@@ -103,6 +103,7 @@ export class ListingUsers extends connect(store)(LitElement) {
           border-radius: 8px;
           padding: 20px;
           width: 200px;
+          height: 220px;
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
           display: flex;
           flex-direction: column;
@@ -131,7 +132,7 @@ export class ListingUsers extends connect(store)(LitElement) {
         justify-content: center;
         gap: 20px;
         background-color: white;
-        padding-top: 2rem;
+        padding: 2rem 0 2rem 0;
       }
       .userRowGrid > td {
         height: auto;
@@ -142,6 +143,7 @@ export class ListingUsers extends connect(store)(LitElement) {
         border-radius: 8px;
         padding: 20px;
         width: 200px;
+        height: 220px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         display: flex;
         flex-direction: column;
