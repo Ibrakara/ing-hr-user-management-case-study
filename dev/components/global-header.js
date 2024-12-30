@@ -45,8 +45,8 @@ export class GlobalHeader extends LitElement {
         .header-container {
           flex-direction: column;
           padding: 1rem 0;
-          height: 8rem;
-          gap: 0.3rem;
+          height: 10rem;
+          gap: 1rem;
           justify-content: space-between;
         }
         .global-header-left-side {
@@ -57,7 +57,7 @@ export class GlobalHeader extends LitElement {
           align-content: center;
           background-color: white;
           height: 5rem;
-          gap: 0.3rem;
+          gap: 1rem;
         }
         .global-header-right-side {
           flex-direction: column;
@@ -66,8 +66,8 @@ export class GlobalHeader extends LitElement {
           align-items: center;
           align-content: center;
           background-color: white;
-          height: 3rem;
-          gap: 0.3rem;
+          height: 5rem;
+          gap: 1rem;
         }
         .global-header-left-side > img {
           height: 32px;
