@@ -7,6 +7,8 @@ export const ICON = {
   SEARCH: 'search',
   PLUS: 'plus',
   USER: 'user',
+  LISTING: 'listing',
+  GRID: 'grid',
 };
 export const NUMBER_OF_USERS_PER_PAGE = 10;
 export const DEPARTMENT_OPTION_LIST = ['Analytics', 'Tech'];

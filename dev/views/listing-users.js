@@ -1,4 +1,5 @@
 import {LitElement, html, css} from 'lit';
+import {classMap} from 'lit/directives/class-map.js';
 import {ICON, NUMBER_OF_USERS_PER_PAGE, STORE_ACTION_NAMES} from '../constants';
 import {stringContains} from '../helpers';
 import {connect} from 'pwa-helpers';
@@ -17,11 +18,35 @@ export class ListingUsers extends connect(store)(LitElement) {
         gap: 2rem;
         width: 100%;
       }
-      .user-table-container {
+      .listingPageHeader {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 90%;
+        color: #ff6200;
+        font-weight: 500;
+      }
+      .listingPageHeader > .listingType {
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.2rem;
+      }
+      .listingPageHeader > .listingType > custom-button {
+        height: 2rem;
+      }
+      .listingPageHeader > h3 {
+        font-weight: 500;
+      }
+      .userTableContainer {
         border-spacing: 0;
         width: 90%;
+        box-shadow: 10px;
       }
-      .user-row {
+      .userRow,
+      .userRowGrid {
         font-size: 12px;
       }
       td {
@@ -40,7 +65,7 @@ export class ListingUsers extends connect(store)(LitElement) {
         justify-content: center;
         align-items: center;
       }
-      .table-header-container {
+      .tableHeaderContainer {
         background-color: #ffffff;
         color: #ff6200;
       }
@@ -57,10 +82,10 @@ export class ListingUsers extends connect(store)(LitElement) {
         :host {
           padding: 0.2rem;
         }
-        .table-header-container {
+        .tableHeaderContainer {
           display: none;
         }
-        .table-content-container {
+        .tableContentContainer {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
@@ -68,12 +93,11 @@ export class ListingUsers extends connect(store)(LitElement) {
           max-width: 1200px;
           background-color: white;
           padding-top: 2rem;
-          margin-top: 2rem;
         }
         td {
           height: auto;
         }
-        .user-row {
+        .userRow {
           background-color: #fff;
           border: 1px solid #ddd;
           border-radius: 8px;
@@ -85,15 +109,53 @@ export class ListingUsers extends connect(store)(LitElement) {
           align-items: center;
         }
 
-        .user-row h3 {
+        .userRow h3 {
           margin-bottom: 10px;
           color: #333;
         }
 
-        .user-row p {
+        .userRow p {
           margin-bottom: 15px;
           color: #666;
         }
+        .listingPageHeader > .listingType {
+          display: none;
+        }
+      }
+      .tableHeaderContainerGrid {
+        display: none;
+      }
+      .tableContentContainerGrid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        background-color: white;
+        padding-top: 2rem;
+      }
+      .userRowGrid > td {
+        height: auto;
+      }
+      .userRowGrid {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        width: 200px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .userRowGrid h3 {
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      .userRowGrid p {
+        margin-bottom: 15px;
+        color: #666;
       }
     `;
   }
@@ -102,6 +164,9 @@ export class ListingUsers extends connect(store)(LitElement) {
     currentPage: {type: Number},
     isComfirmModalVisible: {type: Boolean},
     userIdForUserToBeDeleted: {type: String},
+    tableHeaderContainerClasses: {},
+    tableContentContainerClasses: {},
+    userRowClasses: {},
   };
   stateChanged(state) {
     this.completeUserList = state.userList;
@@ -127,25 +192,50 @@ export class ListingUsers extends connect(store)(LitElement) {
     this.completeUserList = [];
     this.isComfirmModalVisible = false;
     this.userIdForUserToBeDeleted = '';
+    this.tableHeaderContainerClasses = {
+      tableHeaderContainer: true,
+      tableHeaderContainerGrid: false,
+    };
+    this.tableContentContainerClasses = {
+      tableContentContainer: true,
+      tableContentContainerGrid: false,
+    };
+    this.userRowClasses = {
+      userRow: true,
+      userRowGrid: false,
+    };
   }
 
   render() {
     return html`
-      <table class="user-table-container">
-        <thead class="table-header-container">
+      <div class="listingPageHeader">
+        <h3>Employee List</h3>
+        <div class="listingType">
+          <custom-button
+            @click=${() => this.activateListingView()}
+            .icon=${ICON.LISTING}
+          ></custom-button>
+          <custom-button
+            .icon=${ICON.GRID}
+            @click=${() => this.activateGridView()}
+          ></custom-button>
+        </div>
+      </div>
+      <table class="userTableContainer">
+        <thead class=${classMap(this.tableHeaderContainerClasses)}>
           <tr>
-            <th class="table-header-title">First Name</th>
-            <th class="table-header-title">Last Name</th>
-            <th class="table-header-title">Date of Employment</th>
-            <th class="table-header-title">Date of Birth</th>
-            <th class="table-header-title">Phone</th>
-            <th class="table-header-title">Email</th>
-            <th class="table-header-title">Department</th>
-            <th class="table-header-title">Position</th>
-            <th class="table-header-title">Actions</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Date of Employment</th>
+            <th>Date of Birth</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Position</th>
+            <th>Actions</th>
           </tr>
         </thead>
-        <tbody class="table-content-container">
+        <tbody class=${classMap(this.tableContentContainerClasses)}>
           ${this.employeeListPerPage}
         </tbody>
       </table>
@@ -165,6 +255,34 @@ export class ListingUsers extends connect(store)(LitElement) {
   hideConfirmModal() {
     this.isComfirmModalVisible = false;
     this.requestUpdate();
+  }
+  activateGridView() {
+    this.tableHeaderContainerClasses = {
+      tableHeaderContainer: false,
+      tableHeaderContainerGrid: true,
+    };
+    this.tableContentContainerClasses = {
+      tableContentContainer: false,
+      tableContentContainerGrid: true,
+    };
+    this.userRowClasses = {
+      userRow: false,
+      userRowGrid: true,
+    };
+  }
+  activateListingView() {
+    this.tableHeaderContainerClasses = {
+      tableHeaderContainer: true,
+      tableHeaderContainerGrid: false,
+    };
+    this.tableContentContainerClasses = {
+      tableContentContainer: true,
+      tableContentContainerGrid: false,
+    };
+    this.userRowClasses = {
+      userRow: true,
+      userRowGrid: false,
+    };
   }
   showConfimModal(id) {
     this.isComfirmModalVisible = true;
@@ -246,7 +364,7 @@ export class ListingUsers extends connect(store)(LitElement) {
         );
       })
       .map((item) => {
-        return html` <tr class="user-row">
+        return html` <tr class=${classMap(this.userRowClasses)}>
           <td>${item.name}</td>
           <td>${item.lastName}</td>
           <td>${item.dateOfEmployment}</td>
