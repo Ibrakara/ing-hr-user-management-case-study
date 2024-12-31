@@ -44,7 +44,8 @@
     "lit-translate": "^2.0.1",
     "pwa-helpers": "^0.9.1",
     "redux": "^5.0.1",
-    "reselect": "^5.1.1"
+    "reselect": "^5.1.1",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "@11ty/eleventy": "^1.0.1",
