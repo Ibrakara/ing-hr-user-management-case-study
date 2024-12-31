@@ -1,5 +1,6 @@
 import {STORE_ACTION_NAMES} from '../constants';
 import {mockUserList} from '../mock-data.js';
+import {v4 as uuidv4} from 'uuid';
 
 const INITIAL_STATE = {
   userList: mockUserList,
@@ -31,7 +32,7 @@ export const reducer = (state = INITIAL_STATE, action) => {
     case STORE_ACTION_NAMES.ADD_USER:
       return {
         ...state,
-        userList: [...state.userList, {...state.userForm}],
+        userList: [...state.userList, {...state.userForm, id: uuidv4()}],
       };
     case STORE_ACTION_NAMES.SET_USER_FORM:
       return {
