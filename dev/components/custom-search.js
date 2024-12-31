@@ -1,4 +1,6 @@
 import {LitElement, html, css} from 'lit';
+import {translate} from 'lit-translate';
+
 export class CustomSearch extends LitElement {
   static get styles() {
     return css`
@@ -48,7 +50,7 @@ export class CustomSearch extends LitElement {
       <input
         type="text"
         .value=${this.searchInput}
-        placeholder="Search for a user..."
+        placeholder=${translate('searcPlaceholder')}
         class="search-box"
         @input=${this.setInput}
         .disabled=${this.isSearchDisabled}

@@ -4,6 +4,8 @@ import {store} from './store/store.js';
 import {setState} from './store/actions.js';
 import {STORE_ACTION_NAMES} from './constants/index.js';
 import router from '../dev/router';
+import {registerTranslateConfig, use} from 'lit-translate';
+
 export class MyApp extends connect(store)(LitElement) {
   static styles = css`
     main {
@@ -23,6 +25,16 @@ export class MyApp extends connect(store)(LitElement) {
   }
   constructor() {
     super();
+    registerTranslateConfig({
+      loader: async (lang) => {
+        if (lang === 'en' || lang === 'tr') {
+          return await fetch(`dev/i18n/${lang}.json`).then((res) => res.json());
+        } else {
+          return await fetch(`dev/i18n/en.json`).then((res) => res.json());
+        }
+      },
+    });
+    use(navigator.language);
     this.isListingPage = true;
   }
 

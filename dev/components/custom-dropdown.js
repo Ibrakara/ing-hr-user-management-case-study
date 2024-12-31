@@ -90,10 +90,10 @@ export class CustomDropdown extends LitElement {
         <option value=${this.placeHolder}>${this.placeHolder}</option>
         ${this.optionList.map((option) => {
           return html`<option
-            .selected=${this.inputValue === option}
-            value=${option}
+            .selected=${this.inputValue === option.value}
+            value=${option.value}
           >
-            ${option}
+            ${option.label}
           </option>`;
         })}
       </select>

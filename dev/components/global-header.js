@@ -1,6 +1,7 @@
 import {LitElement, html, css} from 'lit';
 import {ICON} from '../constants';
 import {Router} from '@vaadin/router';
+import {translate} from 'lit-translate';
 
 export class GlobalHeader extends LitElement {
   static get styles() {
@@ -110,13 +111,13 @@ export class GlobalHeader extends LitElement {
         <div class="global-header-right-side">
           <custom-button
             @click=${() => Router.go('/')}
-            name="Employees"
+            name=${translate('button.headerEmployees')}
             .icon=${ICON.USER}
           ></custom-button>
           <custom-button
-            name="Add New"
             .icon=${ICON.PLUS}
             @click=${() => Router.go('/create')}
+            name=${translate('button.headerAddNew')}
           ></custom-button>
         </div>
       </div>

@@ -80,6 +80,8 @@ export class CustomModal extends LitElement {
       isVisible: {type: Boolean},
       title: {type: String},
       description: {type: String},
+      cancelButtonName: {type: String},
+      approveButtonName: {type: String},
     };
   }
 
@@ -88,6 +90,8 @@ export class CustomModal extends LitElement {
     this.title = '';
     this.description = '';
     this.isVisible = false;
+    this.cancelButtonName = 'Cancel';
+    this.approveButtonName = 'Approve';
   }
 
   render() {
@@ -105,14 +109,14 @@ export class CustomModal extends LitElement {
               id="cancelBtn"
               class="action-btn cancel"
             >
-              Cancel
+              ${this.cancelButtonName}
             </button>
             <button
               @click=${this.approved}
               id="approveBtn"
               class="action-btn approve"
             >
-              Approve
+              ${this.approveButtonName}
             </button>
           </div>
         </div>

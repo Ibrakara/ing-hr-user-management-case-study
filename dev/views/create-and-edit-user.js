@@ -13,6 +13,8 @@ import {
 import {setState} from '../store/actions.js';
 import {Router} from '@vaadin/router';
 import router from '../router/index.js';
+import {get, translate} from 'lit-translate';
+
 export class CreateAndEditUser extends connect(store)(LitElement) {
   static get styles() {
     return css`
@@ -92,7 +94,7 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
           }}
           error=${this.formErrorObject.name}
           .required=${true}
-          label="Name"
+          label=${translate('listingHeader.firstName')}
           inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.NAME)}
         ></custom-input>
         <custom-input
@@ -104,7 +106,7 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
             );
           }}
           error=${this.formErrorObject.lastName}
-          label="Last Name"
+          label=${translate('listingHeader.lastName')}
           inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.LAST_NAME)}
         ></custom-input>
         <custom-input
@@ -117,7 +119,7 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
           }}
           error=${this.formErrorObject.dateOfEmployment}
           type="date"
-          label="Date of Employement"
+          label=${translate('listingHeader.dateOfEmployment')}
           inputValue=${this.getFormAttribute(
             FORM_ATTRIBUTES.DATE_OF_EMPLOYMENT
           )}
@@ -132,7 +134,7 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
           }}
           error=${this.formErrorObject.dateOfBirth}
           type="date"
-          label="Date of Birth"
+          label=${translate('listingHeader.dateOfBirth')}
           inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.DATE_OF_BIRTH)}
         ></custom-input>
         <custom-input
@@ -145,7 +147,7 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
           }}
           error=${this.formErrorObject.phoneNumber}
           type="tel"
-          label="Phone Number"
+          label=${translate('listingHeader.phoneNumber')}
           inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.PHONE_NUMBER)}
         ></custom-input>
         <custom-input
@@ -154,7 +156,7 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
             this.validateAttribute(FORM_ATTRIBUTES.EMAIL, e.detail.inputValue);
           }}
           error=${this.formErrorObject.email}
-          label="Email"
+          label=${translate('listingHeader.email')}
           inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.EMAIL)}
         ></custom-input>
         <custom-dropdown
@@ -169,8 +171,8 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
           }}
           error=${this.formErrorObject.department}
           class="form-dropdown"
-          placeHolder="Choose Department"
-          .optionList=${DEPARTMENT_OPTION_LIST}
+          placeHolder=${translate('listingHeader.department')}
+          .optionList=${this.getDepartmentList}
           inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.DEPARTMENT)}
         ></custom-dropdown>
         <custom-dropdown
@@ -185,8 +187,8 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
           }}
           error=${this.formErrorObject.position}
           class="form-dropdown"
-          placeHolder="Choose Position"
-          .optionList=${POSITION_OPTION_LIST}
+          placeHolder=${translate('listingHeader.position')}
+          .optionList=${this.getPositionList}
           inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.POSITION)}
         ></custom-dropdown>
         <custom-button
@@ -197,9 +199,11 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
         ></custom-button>
       </div>
       <custom-modal
-        title="Edit user?"
-        description="You are about to save the changes, are you sure?"
+        title=${translate('createAndEditUserModal.title')}
+        description=${translate('createAndEditUserModal.description')}
         .isVisible=${this.isComfirmModalVisible}
+        cancelButtonName=${translate('button.cancel')}
+        approveButtonName=${translate('button.approve')}
         @cancelled=${this.hideConfirmModal}
         @approved=${this.editUser}
       ></custom-modal>
@@ -258,7 +262,7 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
     const isInputInvaild =
       isInputEmpty || isInputInvalidPhoneNumber || isInputInvalidEmail;
     if (isInputInvaild) {
-      this.formErrorObject[attribute] = FORM_ERROR[attribute];
+      this.formErrorObject[attribute] = get(`FORM_ERROR.${attribute}`);
     } else {
       this.formErrorObject[attribute] = '';
     }
@@ -266,13 +270,29 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
     return !isInputInvaild;
   }
   get pageName() {
-    return this.isEditPage ? 'Edit User' : 'Create User';
+    return get(`pageHeader.${this.isEditPage ? 'editUser' : 'createUser'}`);
   }
   get isEditPage() {
     return router.location.pathname.includes('edit');
   }
   get getEditedUserId() {
     return router.location.params.userId;
+  }
+  get getDepartmentList() {
+    return DEPARTMENT_OPTION_LIST.map((position) => {
+      return {
+        value: position.value,
+        label: get(`department.${position.label.toLowerCase()}`),
+      };
+    });
+  }
+  get getPositionList() {
+    return POSITION_OPTION_LIST.map((position) => {
+      return {
+        value: position.value,
+        label: get(`position.${position.label.toLowerCase()}`),
+      };
+    });
   }
   getFormAttribute(attributeName) {
     return store.getState().userForm[attributeName];

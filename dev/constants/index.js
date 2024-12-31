@@ -11,8 +11,15 @@ export const ICON = {
   GRID: 'grid',
 };
 export const NUMBER_OF_USERS_PER_PAGE = 10;
-export const DEPARTMENT_OPTION_LIST = ['Analytics', 'Tech'];
-export const POSITION_OPTION_LIST = ['Junior', 'Medior', 'Senior'];
+export const DEPARTMENT_OPTION_LIST = [
+  {value: 'Analytics', label: 'Analytics'},
+  {value: 'Tech', label: 'Tech'},
+];
+export const POSITION_OPTION_LIST = [
+  {value: 'Junior', label: 'Junior'},
+  {value: 'Medior', label: 'Medior'},
+  {value: 'Senior', label: 'Senior'},
+];
 export const FORM_ATTRIBUTES = {
   NAME: 'name',
   LAST_NAME: 'lastName',

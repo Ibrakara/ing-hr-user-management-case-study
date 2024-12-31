@@ -6,6 +6,7 @@ import {connect} from 'pwa-helpers';
 import {store} from '../store/store.js';
 import {setState} from '../store/actions.js';
 import {Router} from '@vaadin/router';
+import {translate} from 'lit-translate';
 
 export class ListingUsers extends connect(store)(LitElement) {
   static get styles() {
@@ -211,7 +212,7 @@ export class ListingUsers extends connect(store)(LitElement) {
   render() {
     return html`
       <div class="listingPageHeader">
-        <h3>Employee List</h3>
+        <h3>${translate('pageHeader.listing')}</h3>
         <div class="listingType">
           <custom-button
             @click=${() => this.activateListingView()}
@@ -226,15 +227,15 @@ export class ListingUsers extends connect(store)(LitElement) {
       <table class="userTableContainer">
         <thead class=${classMap(this.tableHeaderContainerClasses)}>
           <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Date of Employment</th>
-            <th>Date of Birth</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Department</th>
-            <th>Position</th>
-            <th>Actions</th>
+            <th>${translate('listingHeader.firstName')}</th>
+            <th>${translate('listingHeader.lastName')}</th>
+            <th>${translate('listingHeader.dateOfEmployment')}</th>
+            <th>${translate('listingHeader.dateOfBirth')}</th>
+            <th>${translate('listingHeader.phoneNumber')}</th>
+            <th>${translate('listingHeader.email')}</th>
+            <th>${translate('listingHeader.department')}</th>
+            <th>${translate('listingHeader.position')}</th>
+            <th>${translate('listingHeader.actions')}</th>
           </tr>
         </thead>
         <tbody class=${classMap(this.tableContentContainerClasses)}>
@@ -246,9 +247,11 @@ export class ListingUsers extends connect(store)(LitElement) {
         count=${this.pageCount}
       ></listing-pagination>
       <custom-modal
-        title="Delete user?"
-        description="You are about to delete a user, are you sure?"
+        title=${translate('deleteUserModal.title')}
+        description=${translate('deleteUserModal.description')}
         .isVisible=${this.isComfirmModalVisible}
+        cancelButtonName=${translate('button.cancel')}
+        approveButtonName=${translate('button.approve')}
         @cancelled=${this.hideConfirmModal}
         @approved=${() => this.deleteUser(this.userIdForUserToBeDeleted)}
       ></custom-modal>
@@ -373,8 +376,8 @@ export class ListingUsers extends connect(store)(LitElement) {
           <td>${item.dateOfBirth}</td>
           <td>${item.phoneNumber}</td>
           <td>${item.email}</td>
-          <td>${item.department}</td>
-          <td>${item.position}</td>
+          <td>${translate(`department.${item.department.toLowerCase()}`)}</td>
+          <td>${translate(`position.${item.position.toLowerCase()}`)}</td>
           <td>
             <custom-button
               @click=${() => this.goEditPage(item.id)}
