@@ -9,6 +9,8 @@ export const ICON = {
   USER: 'user',
   LISTING: 'listing',
   GRID: 'grid',
+  TURKISH_FLAG: 'turkish-flag',
+  UK_FLAG: 'uk-flag',
 };
 export const NUMBER_OF_USERS_PER_PAGE = 10;
 export const DEPARTMENT_OPTION_LIST = [
@@ -45,6 +47,7 @@ export const STORE_ACTION_NAMES = {
   SET_FORM_POSITION: 'SET_FORM_POSITION',
   ADD_USER: 'ADD_USER',
   EDIT_USER: 'EDIT_USER',
+  SET_LOCALE: 'SET_LOCALE',
 };
 export const PHONE_REGEX = '^[+][(][0-9]{2}[)][0-9]{10}$';
 export const EMAIL_REGEX = '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}';
