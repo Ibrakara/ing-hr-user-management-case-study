@@ -39,9 +39,9 @@
   "author": "Google LLC",
   "license": "BSD-3-Clause",
   "dependencies": {
-    "@lit/localize": "^0.12.2",
     "@vaadin/router": "^2.0.0",
     "lit": "^3.2.0",
+    "lit-translate": "^2.0.1",
     "pwa-helpers": "^0.9.1",
     "redux": "^5.0.1",
     "reselect": "^5.1.1"
@@ -51,7 +51,6 @@
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
     "@babel/eslint-parser": "^7.17.0",
     "@custom-elements-manifest/analyzer": "^0.6.3",
-    "@lit/localize-tools": "^0.8.0",
     "@open-wc/testing": "^4.0.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-replace": "^5.0.7",
