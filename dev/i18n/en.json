@@ -1,0 +1,52 @@
+{
+  "listingHeader": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "dateOfEmployment": "Date of Employment",
+    "dateOfBirth": "Date of Birth",
+    "phoneNumber": "Phone",
+    "email": "Email",
+    "department": "Department",
+    "position": "Position",
+    "actions": "Actions"
+  },
+  "department": {
+    "analytics": "Analytics",
+    "tech": "Tech"
+  },
+  "position": {
+    "junior": "Junior",
+    "medior": "Medior",
+    "senior": "Senior"
+  },
+  "button": {
+    "headerEmployees": "Employees",
+    "headerAddNew": "Add New",
+    "cancel": "Cancel",
+    "approve": "Approve"
+  },
+  "pageHeader": {
+    "listing": "Employee List",
+    "createUser": "Create User",
+    "editUser": "Edit User"
+  },
+  "searcPlaceholder": "Search for a user...",
+  "FORM_ERROR": {
+    "name": "This field can not be empty",
+    "lastName": "This field can not be empty",
+    "dateOfEmployment": "This field can not be empty",
+    "dateOfBirth": "This field can not be empty",
+    "phoneNumber": "This field can not be empty and should be in +(90)5555555555 format",
+    "email": "This field can not be empty and should be in example@example.com format",
+    "department": "This field can not be empty",
+    "position": "This field can not be empty"
+  },
+  "createAndEditUserModal": {
+    "title": "Edit user?",
+    "description": "You are about to save the changes, are you sure?"
+  },
+  "deleteUserModal": {
+    "title": "Delete user?",
+    "description": "You are about to delete a user, are you sure?"
+  }
+}

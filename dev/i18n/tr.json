@@ -1,0 +1,52 @@
+{
+  "listingHeader": {
+    "firstName": "Ad",
+    "lastName": "Soyad",
+    "dateOfEmployment": "İşe Giriş Tarihi",
+    "dateOfBirth": "Doğum Tarihi",
+    "phoneNumber": "Telefon",
+    "email": "Email",
+    "department": "Departman",
+    "position": "Pozisyon",
+    "actions": "İşlemler"
+  },
+  "department": {
+    "analytics": "Analiz",
+    "tech": "Teknoloji"
+  },
+  "position": {
+    "junior": "Uzman Yardımcısı",
+    "medior": "Uzman",
+    "senior": "Kıdemli Uzman"
+  },
+  "button": {
+    "headerEmployees": "Çalışanlar",
+    "headerAddNew": "Yeni Ekle",
+    "cancel": "İptal",
+    "approve": "Onay"
+  },
+  "pageHeader": {
+    "listing": "Çalışan Listesi",
+    "createUser": "Çalışan Oluştur",
+    "editUser": "Çalışan Güncelle"
+  },
+  "searcPlaceholder": "Çalışan Ara...",
+  "FORM_ERROR": {
+    "name": "Bu alan boş bırakılamaz",
+    "lastName": "Bu alan boş bırakılamaz",
+    "dateOfEmployment": "Bu alan boş bırakılamaz",
+    "dateOfBirth": "Bu alan boş bırakılamaz",
+    "phoneNumber": "Bu alan boş bırakılamaz ve girilen değer +(90)5555555555 formatında olmalıdır",
+    "email": "Bu alan boş bırakılamaz and girilen değer örnek@örnek.com formatında olmalıdır",
+    "department": "Bu alan boş bırakılamaz",
+    "position": "Bu alan boş bırakılamaz"
+  },
+  "createAndEditUserModal": {
+    "title": "Güncellemeyi onaylıyor musunuz?",
+    "description": "Değişiklikleri kaydetmek üzeresiniz, emin misiniz?"
+  },
+  "deleteUserModal": {
+    "title": "Silmeyi onaylıyor musunuz?",
+    "description": "Çalışanlardan birini silmek üzeresiniz, emin misiniz?"
+  }
+}
