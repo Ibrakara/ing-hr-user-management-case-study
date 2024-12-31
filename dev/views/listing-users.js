@@ -16,7 +16,6 @@ export class ListingUsers extends connect(store)(LitElement) {
         flex-direction: column;
         align-items: center;
         padding: 2rem;
-        gap: 2rem;
         width: 100%;
       }
       .listingPageHeader {
@@ -369,6 +368,7 @@ export class ListingUsers extends connect(store)(LitElement) {
         );
       })
       .map((item) => {
+        console.log(item);
         return html` <tr class=${classMap(this.userRowClasses)}>
           <td>${item.name}</td>
           <td>${item.lastName}</td>
