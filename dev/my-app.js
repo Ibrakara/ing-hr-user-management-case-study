@@ -4,7 +4,7 @@ import {store} from './store/store.js';
 import {setState} from './store/actions.js';
 import {STORE_ACTION_NAMES} from './constants/index.js';
 import router from '../dev/router';
-import {registerTranslateConfig, use} from 'lit-translate';
+import {registerTranslateConfig} from 'lit-translate';
 
 export class MyApp extends connect(store)(LitElement) {
   static styles = css`

@@ -5,7 +5,6 @@ import {translate} from 'lit-translate';
 import {store} from '../store/store.js';
 import {STORE_ACTION_NAMES} from '../constants/index.js';
 import {setState} from '../store/actions.js';
-import {use} from 'lit-translate';
 
 export class GlobalHeader extends LitElement {
   static get styles() {
