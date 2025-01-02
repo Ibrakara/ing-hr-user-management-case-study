@@ -51,6 +51,14 @@ npm test:watch
 
 Alternatively the `test:prod` and `test:prod:watch` commands will run your tests in Lit's production mode.
 
+For test coverage:
+
+```bash
+npm test:watch
+```
+
+can be run.
+
 ## Dev Server
 
 This sample uses modern-web.dev's [@web/dev-server](https://www.npmjs.com/package/@web/dev-server) for previewing the project without additional build steps. Web Dev Server handles resolving Node-style "bare" import specifiers, which aren't supported in browsers. It also automatically transpiles JavaScript and adds polyfills to support older browsers. See [modern-web.dev's Web Dev Server documentation](https://modern-web.dev/docs/dev-server/overview/) for more information.
