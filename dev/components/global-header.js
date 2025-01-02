@@ -2,6 +2,10 @@ import {LitElement, html, css} from 'lit';
 import {ICON} from '../constants';
 import {Router} from '@vaadin/router';
 import {translate} from 'lit-translate';
+import {store} from '../store/store.js';
+import {STORE_ACTION_NAMES} from '../constants/index.js';
+import {setState} from '../store/actions.js';
+import {use} from 'lit-translate';
 
 export class GlobalHeader extends LitElement {
   static get styles() {
@@ -90,6 +94,8 @@ export class GlobalHeader extends LitElement {
   constructor() {
     super();
     this.showSearchInputComponent = true;
+    this.flag =
+      store.getState().locale === 'tr' ? ICON.UK_FLAG : ICON.TURKISH_FLAG;
   }
 
   render() {
@@ -119,6 +125,10 @@ export class GlobalHeader extends LitElement {
             @click=${() => Router.go('/create')}
             name=${translate('button.headerAddNew')}
           ></custom-button>
+          <custom-button
+            .icon=${this.flag}
+            @click=${() => this.changeLocale()}
+          ></custom-button>
         </div>
       </div>
     `;
@@ -129,6 +139,17 @@ export class GlobalHeader extends LitElement {
         detail: {searchValue: e.detail.searchInput},
       })
     );
+  }
+  changeLocale() {
+    store.dispatch(
+      setState({
+        type: STORE_ACTION_NAMES.SET_LOCALE,
+        value: store.getState().locale === 'tr' ? 'en' : 'tr',
+      })
+    );
+    this.flag =
+      store.getState().locale === 'tr' ? ICON.UK_FLAG : ICON.TURKISH_FLAG;
+    this.requestUpdate();
   }
 }
 
