@@ -25,16 +25,7 @@ export class MyApp extends connect(store)(LitElement) {
   }
   constructor() {
     super();
-    registerTranslateConfig({
-      loader: async (lang) => {
-        if (lang === 'en' || lang === 'tr') {
-          return await fetch(`dev/i18n/${lang}.json`).then((res) => res.json());
-        } else {
-          return await fetch(`dev/i18n/en.json`).then((res) => res.json());
-        }
-      },
-    });
-    use(navigator.language);
+    this.setLocale();
     this.isListingPage = true;
   }
 
@@ -54,6 +45,23 @@ export class MyApp extends connect(store)(LitElement) {
       setState({
         type: STORE_ACTION_NAMES.SET_SEARCH_VALUE,
         value: value,
+      })
+    );
+  }
+  async setLocale() {
+    registerTranslateConfig({
+      loader: async (lang) => {
+        if (lang === 'en' || lang === 'tr') {
+          return await fetch(`dev/i18n/${lang}.json`).then((res) => res.json());
+        } else {
+          return await fetch(`dev/i18n/en.json`).then((res) => res.json());
+        }
+      },
+    });
+    store.dispatch(
+      setState({
+        type: STORE_ACTION_NAMES.SET_LOCALE,
+        value: navigator.language,
       })
     );
   }

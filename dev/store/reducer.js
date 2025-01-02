@@ -1,3 +1,4 @@
+import {use} from 'lit-translate';
 import {STORE_ACTION_NAMES} from '../constants';
 import {mockUserList} from '../mock-data.js';
 import {v4 as uuidv4} from 'uuid';
@@ -5,6 +6,7 @@ import {v4 as uuidv4} from 'uuid';
 const INITIAL_STATE = {
   userList: mockUserList,
   searchValue: '',
+  locale: '',
   userForm: {
     name: '',
     lastName: '',
@@ -95,6 +97,12 @@ export const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         userForm: {...state.userForm, position: action.value},
+      };
+    case STORE_ACTION_NAMES.SET_LOCALE:
+      use(action.value);
+      return {
+        ...state,
+        locale: action.value,
       };
     default:
       return state;
