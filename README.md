@@ -54,7 +54,7 @@ Alternatively the `test:prod` and `test:prod:watch` commands will run your tests
 For test coverage:
 
 ```bash
-npm test:watch
+npm run coverage
 ```
 
 can be run.
