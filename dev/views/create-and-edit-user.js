@@ -85,14 +85,20 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
 
   render() {
     return html`
-      <h2>${this.pageName}</h2>
+      <h2>
+        ${translate(
+          `pageHeader.${this.isEditPage ? 'editUser' : 'createUser'}`
+        )}
+      </h2>
       <div class="form-container">
         <custom-input
           @input-updated=${(e) => {
             this.setInput(STORE_ACTION_NAMES.SET_FORM_NAME, e);
             this.validateAttribute(FORM_ATTRIBUTES.NAME, e.detail.inputValue);
           }}
-          error=${this.formErrorObject.name}
+          .error=${this.formErrorObject.name
+            ? translate('FORM_ERROR.name')
+            : ''}
           .required=${true}
           label=${translate('listingHeader.firstName')}
           inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.NAME)}
@@ -105,7 +111,9 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
               e.detail.inputValue
             );
           }}
-          error=${this.formErrorObject.lastName}
+          .error=${this.formErrorObject.lastName
+            ? translate('FORM_ERROR.lastName')
+            : ''}
           label=${translate('listingHeader.lastName')}
           inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.LAST_NAME)}
         ></custom-input>
@@ -117,7 +125,9 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
               e.detail.inputValue
             );
           }}
-          error=${this.formErrorObject.dateOfEmployment}
+          .error=${this.formErrorObject.dateOfEmployment
+            ? translate('FORM_ERROR.dateOfEmployment')
+            : ''}
           type="date"
           label=${translate('listingHeader.dateOfEmployment')}
           inputValue=${this.getFormAttribute(
@@ -132,7 +142,9 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
               e.detail.inputValue
             );
           }}
-          error=${this.formErrorObject.dateOfBirth}
+          .error=${this.formErrorObject.dateOfBirth
+            ? translate('FORM_ERROR.dateOfBirth')
+            : ''}
           type="date"
           label=${translate('listingHeader.dateOfBirth')}
           inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.DATE_OF_BIRTH)}
@@ -145,7 +157,9 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
               e.detail.inputValue
             );
           }}
-          error=${this.formErrorObject.phoneNumber}
+          .error=${this.formErrorObject.phoneNumber
+            ? translate('FORM_ERROR.phoneNumber')
+            : ''}
           type="tel"
           label=${translate('listingHeader.phoneNumber')}
           inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.PHONE_NUMBER)}
@@ -155,7 +169,9 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
             this.setInput(STORE_ACTION_NAMES.SET_FORM_EMAIL, e);
             this.validateAttribute(FORM_ATTRIBUTES.EMAIL, e.detail.inputValue);
           }}
-          error=${this.formErrorObject.email}
+          .error=${this.formErrorObject.email
+            ? translate('FORM_ERROR.email')
+            : ''}
           label=${translate('listingHeader.email')}
           inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.EMAIL)}
         ></custom-input>
@@ -169,10 +185,17 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
           @selection-updated=${(e) => {
             this.setInput(STORE_ACTION_NAMES.SET_FORM_DEPARTMENT, e);
           }}
-          error=${this.formErrorObject.department}
+          .error=${this.formErrorObject.department
+            ? translate('FORM_ERROR.department')
+            : ''}
           class="form-dropdown"
           placeHolder=${translate('listingHeader.department')}
-          .optionList=${this.getDepartmentList}
+          .optionList=${DEPARTMENT_OPTION_LIST.map((position) => {
+            return {
+              value: position.value,
+              label: translate(`department.${position.label.toLowerCase()}`),
+            };
+          })}
           inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.DEPARTMENT)}
         ></custom-dropdown>
         <custom-dropdown
@@ -185,17 +208,26 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
           @selection-updated=${(e) => {
             this.setInput(STORE_ACTION_NAMES.SET_FORM_POSITION, e);
           }}
-          error=${this.formErrorObject.position}
+          .error=${this.formErrorObject.position
+            ? translate('FORM_ERROR.position')
+            : ''}
           class="form-dropdown"
           placeHolder=${translate('listingHeader.position')}
-          .optionList=${this.getPositionList}
+          .optionList=${POSITION_OPTION_LIST.map((position) => {
+            return {
+              value: position.value,
+              label: translate(`position.${position.label.toLowerCase()}`),
+            };
+          })}
           inputValue=${this.getFormAttribute(FORM_ATTRIBUTES.POSITION)}
         ></custom-dropdown>
         <custom-button
           .hasBorder=${true}
           @click=${this.confirmForm}
           class="form-button"
-          name=${this.pageName}
+          name=${translate(
+            `pageHeader.${this.isEditPage ? 'editUser' : 'createUser'}`
+          )}
         ></custom-button>
       </div>
       <custom-modal
@@ -262,37 +294,18 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
     const isInputInvaild =
       isInputEmpty || isInputInvalidPhoneNumber || isInputInvalidEmail;
     if (isInputInvaild) {
-      this.formErrorObject[attribute] = get(`FORM_ERROR.${attribute}`);
+      this.formErrorObject[attribute] = FORM_ERROR[attribute];
     } else {
       this.formErrorObject[attribute] = '';
     }
     if (requestUpdate) this.requestUpdate();
     return !isInputInvaild;
   }
-  get pageName() {
-    return get(`pageHeader.${this.isEditPage ? 'editUser' : 'createUser'}`);
-  }
   get isEditPage() {
     return router.location.pathname.includes('edit');
   }
   get getEditedUserId() {
     return router.location.params.userId;
-  }
-  get getDepartmentList() {
-    return DEPARTMENT_OPTION_LIST.map((position) => {
-      return {
-        value: position.value,
-        label: get(`department.${position.label.toLowerCase()}`),
-      };
-    });
-  }
-  get getPositionList() {
-    return POSITION_OPTION_LIST.map((position) => {
-      return {
-        value: position.value,
-        label: get(`position.${position.label.toLowerCase()}`),
-      };
-    });
   }
   getFormAttribute(attributeName) {
     return store.getState().userForm[attributeName];
