@@ -34,6 +34,8 @@ suite('custom-modal', () => {
         .title=${'Confirmation'}
         .description=${'Are you sure you want to proceed?'}
         .isVisible=${true}
+        approveButtonName="Confirm"
+        cancelButtonName="Quit"
       ></custom-modal>`
     );
 
@@ -46,8 +48,8 @@ suite('custom-modal', () => {
           <h2>Confirmation</h2>
           <p>Are you sure you want to proceed?</p>
           <div class="modal-actions">
-            <button id="cancelBtn" class="action-btn cancel">Cancel</button>
-            <button id="approveBtn" class="action-btn approve">Approve</button>
+            <button id="cancelBtn" class="action-btn cancel">Quit</button>
+            <button id="approveBtn" class="action-btn approve">Confirm</button>
           </div>
         </div>
       </div>
