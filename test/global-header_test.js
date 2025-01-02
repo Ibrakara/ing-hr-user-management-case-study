@@ -21,8 +21,9 @@ suite('global-header', () => {
           <custom-search></custom-search>
         </div>
         <div class="global-header-right-side">
-          <custom-button name="Employees"></custom-button>
-          <custom-button name="Add New"></custom-button>
+          <custom-button name="[button.headerEmployees]"></custom-button>
+          <custom-button name="[button.headerAddNew]"></custom-button>
+          <custom-button></custom-button>
         </div>
       </div>
       `

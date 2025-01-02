@@ -25,7 +25,10 @@ suite('listing-users', () => {
     const el = await fixture(
       html`<custom-dropdown
         placeHolder="Test placeholder"
-        .optionList=${['option1', 'option2']}
+        .optionList=${[
+          {value: 'option1 value', label: 'option1 label'},
+          {value: 'option2 value', label: 'option2 label'},
+        ]}
         error="Test error"
       ></custom-dropdown>`
     );
@@ -36,14 +39,14 @@ suite('listing-users', () => {
       <select>
             <option value="Test placeholder">Test placeholder</option>
         <option
-            value="option1"
+            value="option1 value"
           >
-            option1
+            option1 label
           </option>
         <option
-            value="option2"
+            value="option2 value"
           >
-            option2
+            option2 label
           </option>
       </select>
       <span class="form-error">Test error</span>
@@ -54,13 +57,16 @@ suite('listing-users', () => {
   test('dispatch selection and validate event', async () => {
     const el = await fixture(
       html`<custom-dropdown
-        .optionList=${['Option 1', 'Option 2']}
+        .optionList=${[
+          {value: 'option1 value', label: 'option1 label'},
+          {value: 'option2 value', label: 'option2 label'},
+        ]}
       ></custom-dropdown>`
     );
 
     // Select a value
     const select = el.shadowRoot.querySelector('select');
-    select.value = 'Option 1';
+    select.value = 'option1 value';
 
     // Dispatch input event and listen for the custom event
     const selectionEventPromise = oneEvent(el, 'selection-updated');
@@ -69,7 +75,7 @@ suite('listing-users', () => {
 
     const selectionEvent = await selectionEventPromise;
     const validationEvent = await validationEventPromise;
-    expect(selectionEvent.detail.inputValue).to.equal('Option 1');
-    expect(validationEvent.detail.inputValue).to.equal('Option 1');
+    expect(selectionEvent.detail.inputValue).to.equal('option1 value');
+    expect(validationEvent.detail.inputValue).to.equal('option1 value');
   });
 });

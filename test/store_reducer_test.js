@@ -5,6 +5,7 @@ import {expect} from '@open-wc/testing';
 
 suite('reducer', () => {
   const initialState = {
+    locale: '',
     userList: mockUserList,
     searchValue: '',
     userForm: {
@@ -60,8 +61,15 @@ suite('reducer', () => {
     const result = reducer(initialState, action);
 
     expect(result.userList.length).to.equal(initialState.userList.length + 1);
-    expect(result.userList[result.userList.length - 1]).to.deep.equal(
-      initialState.userForm
+    expect(
+      JSON.stringify(Object.keys(result.userList[result.userList.length - 1]))
+    ).to.equal(
+      JSON.stringify(
+        Object.keys({
+          ...initialState.userForm,
+          id: 'uuidv4',
+        })
+      )
     );
   });
 

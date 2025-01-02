@@ -15,8 +15,8 @@ const mockUserList = [
     dateOfBirth: '1990-05-14',
     phoneNumber: '1234567890',
     email: 'john@example.com',
-    department: 'HR',
-    position: 'Manager',
+    department: 'Analytics',
+    position: 'Junior',
   },
   {
     id: '2',
@@ -51,7 +51,7 @@ suite('ListingUsers Component Tests', () => {
   test('should display the correct number of users in the table', async () => {
     element = await fixture(html`<listing-users></listing-users>`);
 
-    const rows = element.shadowRoot.querySelectorAll('.user-row');
+    const rows = element.shadowRoot.querySelectorAll('tbody > tr');
     expect(rows.length).to.equal(mockUserList.length);
   });
 
@@ -70,7 +70,7 @@ suite('ListingUsers Component Tests', () => {
     element = await fixture(html`<listing-users></listing-users>`);
 
     const deleteButton =
-      element.shadowRoot.querySelectorAll('custom-button')[1]; // Assuming the second button is the delete button
+      element.shadowRoot.querySelectorAll('td > custom-button')[1]; // Assuming the second button is the delete button
     deleteButton.click();
 
     // Check if modal becomes visible after delete button click
@@ -94,16 +94,21 @@ suite('ListingUsers Component Tests', () => {
   test('should render user row correctly', async () => {
     element = await fixture(html`<listing-users></listing-users>`);
 
-    const rows = element.shadowRoot.querySelectorAll('.user-row');
+    const cells = element.shadowRoot.querySelectorAll('tbody > tr > td');
     const firstUser = mockUserList[0];
 
-    expect(rows[0].innerHTML).to.contain(firstUser.name);
-    expect(rows[0].innerHTML).to.contain(firstUser.lastName);
-    expect(rows[0].innerHTML).to.contain(firstUser.dateOfEmployment);
-    expect(rows[0].innerHTML).to.contain(firstUser.phoneNumber);
-    expect(rows[0].innerHTML).to.contain(firstUser.email);
-    expect(rows[0].innerHTML).to.contain(firstUser.department);
-    expect(rows[0].innerHTML).to.contain(firstUser.position);
+    expect(cells[0].innerHTML).to.contain(firstUser.name);
+    expect(cells[1].innerHTML).to.contain(firstUser.lastName);
+    expect(cells[2].innerHTML).to.contain(firstUser.dateOfEmployment);
+    expect(cells[3].innerHTML).to.contain(firstUser.dateOfBirth);
+    expect(cells[4].innerHTML).to.contain(firstUser.phoneNumber);
+    expect(cells[5].innerHTML).to.contain(firstUser.email);
+    expect(cells[6].innerHTML).to.contain(
+      `[department.${firstUser.department.toLowerCase()}]`
+    );
+    expect(cells[7].innerHTML).to.contain(
+      `[position.${firstUser.position.toLowerCase()}]`
+    );
   });
 
   test('should display correct user details in table rows', async () => {

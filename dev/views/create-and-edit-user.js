@@ -13,7 +13,7 @@ import {
 import {setState} from '../store/actions.js';
 import {Router} from '@vaadin/router';
 import router from '../router/index.js';
-import {get, translate} from 'lit-translate';
+import {translate} from 'lit-translate';
 
 export class CreateAndEditUser extends connect(store)(LitElement) {
   static get styles() {

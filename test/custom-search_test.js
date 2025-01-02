@@ -16,7 +16,7 @@ suite('custom-search', () => {
       <div class="search-input-container">
         <input
           type="text"
-          placeholder="Search for a user..."
+          placeholder="[searchPlaceholder]"
           class="search-box"
         />
       </div>
