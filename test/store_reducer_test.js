@@ -181,4 +181,13 @@ suite('reducer', () => {
 
     expect(result.userForm.position).to.equal('Manager');
   });
+  test('should handle SET_LOCALE action', () => {
+    const action = {
+      type: STORE_ACTION_NAMES.SET_LOCALE,
+      value: 'en',
+    };
+    const result = reducer(initialState, action);
+
+    expect(result.locale).to.equal('en');
+  });
 });
