@@ -50,7 +50,7 @@ export class CustomSearch extends LitElement {
       <input
         type="text"
         .value=${this.searchInput}
-        placeholder=${translate('searcPlaceholder')}
+        placeholder=${translate('searchPlaceholder')}
         class="search-box"
         @input=${this.setInput}
         .disabled=${this.isSearchDisabled}

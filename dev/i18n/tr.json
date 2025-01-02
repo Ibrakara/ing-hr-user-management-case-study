@@ -30,7 +30,7 @@
     "createUser": "Çalışan Oluştur",
     "editUser": "Çalışan Güncelle"
   },
-  "searcPlaceholder": "Çalışan Ara...",
+  "searchPlaceholder": "Çalışan Ara...",
   "FORM_ERROR": {
     "name": "Bu alan boş bırakılamaz",
     "lastName": "Bu alan boş bırakılamaz",
