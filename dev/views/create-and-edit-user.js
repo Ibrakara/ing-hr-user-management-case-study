@@ -54,9 +54,8 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
       }
     `;
   }
-  static state = {};
 
-  static properties() {
+  static get properties() {
     return {
       isComfirmModalVisible: {type: Boolean},
       formErrorObject: {type: Object},
@@ -312,7 +311,6 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
   }
   hideConfirmModal() {
     this.isComfirmModalVisible = false;
-    this.requestUpdate();
   }
   setFormValuesForEdit() {
     const userId = this.getEditedUserId;

@@ -161,15 +161,18 @@ export class ListingUsers extends connect(store)(LitElement) {
       }
     `;
   }
-  static properties = {
-    currentUserList: {type: Array},
-    currentPage: {type: Number},
-    isComfirmModalVisible: {type: Boolean},
-    userIdForUserToBeDeleted: {type: String},
-    tableHeaderContainerClasses: {},
-    tableContentContainerClasses: {},
-    userRowClasses: {},
-  };
+
+  static get properties() {
+    return {
+      currentUserList: {type: Array},
+      currentPage: {type: Number},
+      isComfirmModalVisible: {type: Boolean},
+      userIdForUserToBeDeleted: {type: String},
+      tableHeaderContainerClasses: {},
+      tableContentContainerClasses: {},
+      userRowClasses: {},
+    };
+  }
   stateChanged(state) {
     this.completeUserList = state.userList;
     if (this.searchValue !== state.searchValue) {
@@ -258,7 +261,6 @@ export class ListingUsers extends connect(store)(LitElement) {
   }
   hideConfirmModal() {
     this.isComfirmModalVisible = false;
-    this.requestUpdate();
   }
   activateGridView() {
     this.tableHeaderContainerClasses = {

@@ -33,10 +33,12 @@ export class ListingPagination extends LitElement {
     `;
   }
 
-  static properties = {
-    count: {type: Number},
-    currentPage: {type: Number},
-  };
+  static get properties() {
+    return {
+      count: {type: Number},
+      currentPage: {type: Number},
+    };
+  }
 
   constructor() {
     super();

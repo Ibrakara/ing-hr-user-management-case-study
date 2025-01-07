@@ -28,11 +28,13 @@ export class CustomButton extends LitElement {
     `;
   }
 
-  static properties = {
-    icon: {type: String},
-    name: {type: String},
-    hasBorder: {type: Boolean},
-  };
+  static get properties() {
+    return {
+      icon: {type: String},
+      name: {type: String},
+      hasBorder: {type: Boolean},
+    };
+  }
 
   constructor() {
     super();
