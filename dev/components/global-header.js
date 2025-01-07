@@ -87,6 +87,7 @@ export class GlobalHeader extends LitElement {
       searchInput: {type: String},
       count: {type: Number},
       showSearchInputComponent: {type: Boolean},
+      flag: {type: String},
     };
   }
 
@@ -148,7 +149,6 @@ export class GlobalHeader extends LitElement {
     );
     this.flag =
       store.getState().locale === 'tr' ? ICON.UK_FLAG : ICON.TURKISH_FLAG;
-    this.requestUpdate();
   }
 }
 

@@ -38,7 +38,6 @@ export class CustomButton extends LitElement {
 
   constructor() {
     super();
-    this.name = null;
     this.hasBorder = false;
   }
 
