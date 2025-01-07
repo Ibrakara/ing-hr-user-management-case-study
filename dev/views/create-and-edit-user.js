@@ -54,7 +54,6 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
       }
     `;
   }
-
   static get properties() {
     return {
       isComfirmModalVisible: {type: Boolean},
@@ -275,14 +274,13 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
   validateForm() {
     const state = store.getState();
     for (const property in state.userForm) {
-      this.validateAttribute(property, state.userForm[property], false);
+      this.validateAttribute(property, state.userForm[property]);
     }
     const errorList = Object.values(this.formErrorObject);
     const isFormValid = errorList.every((entry) => entry === '');
-    this.requestUpdate();
     return isFormValid;
   }
-  validateAttribute(attribute, value, requestUpdate = true) {
+  validateAttribute(attribute, value) {
     const isInputEmpty = value === '';
     const phoneRegex = new RegExp(PHONE_REGEX);
     const mailRegex = new RegExp(EMAIL_REGEX);
@@ -293,11 +291,10 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
     const isInputInvaild =
       isInputEmpty || isInputInvalidPhoneNumber || isInputInvalidEmail;
     if (isInputInvaild) {
-      this.formErrorObject[attribute] = FORM_ERROR[attribute];
+      this.updateFormErrorObject(attribute, FORM_ERROR[attribute]);
     } else {
-      this.formErrorObject[attribute] = '';
+      this.updateFormErrorObject(attribute, '');
     }
-    if (requestUpdate) this.requestUpdate();
     return !isInputInvaild;
   }
   get isEditPage() {
@@ -312,6 +309,9 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
   hideConfirmModal() {
     this.isComfirmModalVisible = false;
   }
+  updateFormErrorObject(key, value) {
+    this.formErrorObject = {...this.formErrorObject, [key]: value};
+  }
   setFormValuesForEdit() {
     const userId = this.getEditedUserId;
     const user = store.getState().userList.find((user) => user.id === userId);
@@ -321,7 +321,6 @@ export class CreateAndEditUser extends connect(store)(LitElement) {
   }
   resetFormValues() {
     store.dispatch(setState({type: STORE_ACTION_NAMES.RESET_USER_FORM}));
-    this.requestUpdate();
   }
 }
 
